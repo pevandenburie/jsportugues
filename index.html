@@ -23,7 +23,7 @@
 Hello JsPortuguese
 
   <form name="noimperfeito">
-    <select name="subject" onChange="onSubjectChanged">
+    <select id="subject" name="subject" onChange="onSubjectChanged">
       <option value="eu">eu
       <option value="tu">tu
       <option value="ele">ele
@@ -37,9 +37,18 @@ Hello JsPortuguese
     </select>
     <input type="text"></input>
     <button onclick="translate()">No imperfeito</button>
-    <label id="translatedText">Result...</label>
+    <div id="translatedText">Result...</div>
   </form>
+  
+  <script>
+  function translate() {
+    //var subject = document.getElementById("subject");
+    //var translatedText = document.getElementById("translatedText");
+    
+    //subject.value();
+  }
+  </script>
 
 </body>
 
-<!html>
+</html>
