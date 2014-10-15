@@ -5,7 +5,7 @@
 <head>
 
   <script>
-    var _  = require('underscore');
+    /*var _  = require('underscore');
 
     // Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
     _.str = require('underscore.string');
@@ -14,7 +14,7 @@
     _.mixin(_.str.exports());
 
     // All functions, include conflict, will be available through _.str object
-    _.str.include('Underscore.string', 'string'); // => true
+    _.str.include('Underscore.string', 'string'); // => true*/
   </script>
 </head>
 
@@ -22,7 +22,8 @@
 
 Hello JsPortuguese
 
-  <form name="noimperfeito">
+  <div>
+  <!-- <form name="noimperfeito"> /-->
     <select id="subject" name="subject" onChange="onSubjectChanged">
       <option value="eu">eu
       <option value="tu">tu
@@ -36,17 +37,30 @@ Hello JsPortuguese
       <option value="voces">voces
     </select>
     <input type="text"></input>
-    <button onclick="translate()">No imperfeito</button>
+    <!-- <input type="button" value="No imperfeito" onClick="translate(); return false" /> /-->
+    <!-- <button onClick="translate()">No imperfeito</button> /-->
+    <button id="noimperfeitoB">No imperfeito</button>
     <div id="translatedText">Result...</div>
-  </form>
+  <!-- </form> /-->
+  </div>
   
   <script>
-  function translate() {
-    //var subject = document.getElementById("subject");
-    //var translatedText = document.getElementById("translatedText");
+  var noimperfeito = function() {
+    console.log("noimperfeito...");
+    var subject = document.getElementById("subject");
+    var translatedText = document.getElementById("translatedText");
     
-    //subject.value();
+    console.log(subject.value);
+    
+    //document.getElementById('translatedText').innerText = subject.value;
+    
+    translatedText.innerText = subject.value;
+    
+    //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
+    
+    //return false;
   }
+  document.getElementById('noimperfeitoB').onclick = noimperfeito;
   </script>
 
 </body>
