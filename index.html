@@ -55,12 +55,16 @@ Hello JsPortuguese
   }
   document.getElementById('noimperfeitoB').onclick = conjugueNoImperfeito;
   
-  function noimperfeito(sujeito, verbo) {
-    //if imperfeitoirregulares.has_key(verbo):
-    //    return "{} {}".format(sujeito, imperfeitoirregulares[verbo][verbe.sujeitoTerminaisonIndexes[sujeito]])
+  function noimperfeito(sujeito, verb) {
+    //if imperfeitoirregulares.has_key(verb):
+    //    return "{} {}".format(sujeito, imperfeitoirregulares[verb][verbe.sujeitoTerminaisonIndexes[sujeito]])
     //else:
-    //    return sujeito + " " + getradical(verbo) + getimperfeitoterminaison(sujeito, verbo)
-    return sujeito + " " + verbo;
+    //    return sujeito + " " + getradical(verb) + getimperfeitoterminaison(sujeito, verb)
+    return sujeito + " " + getradical(verb);
+  }
+  
+  function getradical(verb) {
+    return verb.slice(0, -2);
   }
   
   </script>
