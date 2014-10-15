@@ -63,12 +63,72 @@ Hello JsPortuguese
     return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb);
   }
   
+  function getgroup(verb) {
+    if verb.endswith("ar") {
+        return 1;
+    }
+    else if verb.endswith("er") {
+        return 2;
+    }
+    else if verb.endswith("ir") {
+        return 3;
+    }
+    else {
+        console.log("no group !");
+    }
+  }
+
   function radical(verb) {
     return verb.slice(0, -2);
   }
+
+
+  var sujeitoTerminaisonIndexes = {
+    "eu" : 0,
+    "tu" : 1,
+    "voce" : 2,
+    "ele" : 2,
+    "ela" : 2,
+    "nos" : 3,
+    "voces" : 4,
+    "eles" : 4,
+    "elas" : 5 
+  }  
   
+  var imperfeitoterminaisonsgroup1 = {
+        "eu" : "ava",
+        "tu" : "avas",
+        "voce" : "ava",
+        "ele" : "ava",
+        "ela" : "ava",
+        "nos" : "avamos",
+        "voces" : "avam"
+    }
+
+  var imperfeitoterminaisonsgroup2 = {
+        "eu" : "ia",
+        "tu" : "ias",
+        "voce" : "ia",
+        "ele" : "ia",
+        "ela" : "ia",
+        "nos" : "iamos",
+        "voces" : "iam"
+    }
+
+  var imperfeitoterminaisonsgroup3 = imperfeitoterminaisonsgroup2;
+
   function imperfeitoterminaison(subject, verb) {
-    return "ava";
+    if imperfeitoterminaisonsgroup1.has_key(subject) {
+        if (1 == getgroup(verb)) {
+            return imperfeitoterminaisonsgroup1[subject];
+        }
+        else if (2 == getgroup(verb)) {
+            return imperfeitoterminaisonsgroup2[subject];
+        }
+        else if (3 == getgroup(verb)) {
+            return imperfeitoterminaisonsgroup3[subject];
+        }
+    }
   }
   
   </script>
