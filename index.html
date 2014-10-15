@@ -59,12 +59,16 @@ Hello JsPortuguese
     //if imperfeitoirregulares.has_key(verb):
     //    return "{} {}".format(subject, imperfeitoirregulares[verb][verbe.subjectTerminaisonIndexes[subject]])
     //else:
-    //    return subject + " " + radical(verb) + getimperfeitoterminaison(subject, verb)
-    return subject + " " + radical(verb);
+    //    return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb)
+    return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb);
   }
   
   function radical(verb) {
     return verb.slice(0, -2);
+  }
+  
+  function imperfeitoterminaison(subject, verb) {
+    return "ava";
   }
   
   </script>
