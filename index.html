@@ -118,7 +118,7 @@ Hello JsPortuguese
   var imperfeitoterminaisonsgroup3 = imperfeitoterminaisonsgroup2;
 
   function imperfeitoterminaison(subject, verb) {
-    if imperfeitoterminaisonsgroup1.has_key(subject) {
+    if imperfeitoterminaisonsgroup1.hasOwnProperty(subject) {
         if (1 == getgroup(verb)) {
             return imperfeitoterminaisonsgroup1[subject];
         }
