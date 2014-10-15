@@ -59,18 +59,17 @@ Hello JsPortuguese
     //if imperfeitoirregulares.has_key(verb):
     //    return "{} {}".format(subject, imperfeitoirregulares[verb][verbe.subjectTerminaisonIndexes[subject]])
     //else:
-    //    return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb)
     return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb);
   }
   
   function getgroup(verb) {
-    if verb.endswith("ar") {
+    if (verb.slice(verb.length-2) === "ar") {
         return 1;
     }
-    else if verb.endswith("er") {
+    else if (verb.slice(verb.length-2) === "er") {
         return 2;
     }
-    else if verb.endswith("ir") {
+    else if (verb.slice(verb.length-2) === "ir") {
         return 3;
     }
     else {
@@ -118,7 +117,7 @@ Hello JsPortuguese
   var imperfeitoterminaisonsgroup3 = imperfeitoterminaisonsgroup2;
 
   function imperfeitoterminaison(subject, verb) {
-    if imperfeitoterminaisonsgroup1.hasOwnProperty(subject) {
+    if (imperfeitoterminaisonsgroup1.hasOwnProperty(subject)) {
         if (1 == getgroup(verb)) {
             return imperfeitoterminaisonsgroup1[subject];
         }
