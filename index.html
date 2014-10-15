@@ -36,31 +36,33 @@ Hello JsPortuguese
       <option value="elas">elas
       <option value="voces">voces
     </select>
-    <input type="text"></input>
-    <!-- <input type="button" value="No imperfeito" onClick="translate(); return false" /> /-->
-    <!-- <button onClick="translate()">No imperfeito</button> /-->
+    <input type="text" id="verb"></input>
     <button id="noimperfeitoB">No imperfeito</button>
     <div id="translatedText">Result...</div>
   <!-- </form> /-->
   </div>
   
   <script>
-  var noimperfeito = function() {
-    console.log("noimperfeito...");
-    var subject = document.getElementById("subject");
+  var conjugueNoImperfeito = function() {
+    console.log("conjugueNoImperfeito...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
     var translatedText = document.getElementById("translatedText");
     
-    console.log(subject.value);
-    
-    //document.getElementById('translatedText').innerText = subject.value;
-    
-    translatedText.innerText = subject.value;
+    translatedText.innerText = noimperfeito(subject, verb);
     
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
-    
-    //return false;
   }
-  document.getElementById('noimperfeitoB').onclick = noimperfeito;
+  document.getElementById('noimperfeitoB').onclick = conjugueNoImperfeito;
+  
+  function noimperfeito(sujeito, verbo) {
+    //if imperfeitoirregulares.has_key(verbo):
+    //    return "{} {}".format(sujeito, imperfeitoirregulares[verbo][verbe.sujeitoTerminaisonIndexes[sujeito]])
+    //else:
+    //    return sujeito + " " + getradical(verbo) + getimperfeitoterminaison(sujeito, verbo)
+    return sujeito + " " + verbo;
+  }
+  
   </script>
 
 </body>
