@@ -1,3 +1,18 @@
+//
+// Portuguese Preterito conjuging function
+//
+
+
+// Entry point for preterito conjuging
+function nopreterito(subject, verb) {
+    if (preteritoIrregulares.hasOwnProperty(verb)) {
+        return subject + " " + (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
+    }
+    else {
+        return subject + " " + radical(verb) + getpreteritoterminaison(subject, verb);
+    }
+}
+
 
 var preteritoTerminaisonsGroup1 = ["ei", "aste", "ou", "amos", "aram"];
 
@@ -6,28 +21,28 @@ var preteritoTerminaisonsGroup2 = ["i", "este", "eu", "emos", "eram"];
 var preteritoTerminaisonsGroup3 = ["i", "iste", "iu", "imos", "iram"];
 
 
-var preteritoIrregulares = [
-        "dar",
-        "estar",
-        "ser",
-        "ir",
-        "ter",
-        "vir",
-        "ler",
-        "ver",
-        "dizer",
-        "fazer",
-        "trazer",
-        "poder",
-        "saber",
-        "pôr",
-        "querer",
-        "sair"
-    ];
+var preteritoIrregulares =  {
+        "dar" : ["dei", "deste", "deu", "demos", "deram"],
+        "estar" : ["estive", "estiveste", "esteve", "estivemos", "estiveram"],
+        "ser" : ["fui", "foste", "foi", "fomos", "foram"],
+        "ir" : ["fui", "foste", "foi", "fomos", "foram"],
+        "ter" : ["tive", "tiveste", "teve", "tivemos", "tiveram"],
+        "vir" : ["vim", "vieste", "veio", "viemos", "vieram"],
+        "ler" : ["li", "leste", "leu", "lemos", "leram"],
+        "ver" : ["vi", "viste", "viu", "vimos", "viram"],
+        "dizer" : ["disse", "disseste", "disse", "dissemos", "disseram"],
+        "fazer" : ["fiz", "fizeste", "fez", "fizemos", "fizeram"],
+        "trazer" : ["trouxe", "trouxeste", "trouxe", "trouxemos", "trouxeram"],
+        "poder" : ["pude", "pudeste", "pôde", "pudemos", "puderam"],
+        "saber" : ["soube", "soubeste", "soube", "soubemos", "souberam"],
+        "pôr" : ["pus", "puseste", "pôs", "pusemos", "puseram"],
+        "querer" : ["quis", "quiseste", "quis", "quisemos", "quiseram"],
+        "sair" : ["saì", "saìste", "saiu", "saìmos", "saìram"]
+    };
 
 function getpreteritoterminaison(subject, verb) {
-    if (-1 !== preteritoIrregulares.indexOf(verb)) {
-        // TODO
+    if (preteritoIrregulares.hasOwnProperty(verb)) {
+        return (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
     }
     else if (1 == getgroup(verb)) {
         return preteritoTerminaisonsGroup1[subjectTerminaisonIndexes[subject]];
@@ -41,7 +56,4 @@ function getpreteritoterminaison(subject, verb) {
 }
 
 
-function nopreterito(subject, verb) {
-    return subject + " " + radical(verb) + getpreteritoterminaison(subject, verb);
-}
 
