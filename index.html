@@ -42,6 +42,7 @@ Hello JsPortuguese
     </select>
     <input type="text" id="verb"></input>
     <button id="noimperfeito">No imperfeito</button>
+    <button id="nopreterito">No preterito</button>
     <div id="translatedText">Result...</div>
   <!-- </form> /-->
   </div>
@@ -59,7 +60,18 @@ Hello JsPortuguese
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
   }
   
+  var conjugueNoPreterito = function() {
+    console.log("conjugueNoPreterito...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+    var translatedText = document.getElementById("translatedText");
+    
+    translatedText.innerText = nopreterito(subject, verb);
+  }
+  
   document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
+  document.getElementById('nopreterito').onclick = conjugueNoPreterito;
+  
   document.getElementById('subject').onchange = conjugueNoImperfeito;
   
   </script>
