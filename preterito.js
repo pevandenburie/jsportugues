@@ -37,7 +37,7 @@ var preteritoIrregulares =  {
         "saber" : ["soube", "soubeste", "soube", "soubemos", "souberam"],
         "pôr" : ["pus", "puseste", "pôs", "pusemos", "puseram"],
         "querer" : ["quis", "quiseste", "quis", "quisemos", "quiseram"],
-        "sair" : ["saì", "saìste", "saiu", "saìmos", "saìram"]
+        "sair" : ["sa\u00ec", "sa\u00ecste", "saiu", "sa\u00ecmos", "sa\u00ecram"]
     };
 
 function getpreteritoterminaison(subject, verb) {
