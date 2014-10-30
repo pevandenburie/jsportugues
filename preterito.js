@@ -33,9 +33,9 @@ var preteritoIrregulares =  {
         "dizer" : ["disse", "disseste", "disse", "dissemos", "disseram"],
         "fazer" : ["fiz", "fizeste", "fez", "fizemos", "fizeram"],
         "trazer" : ["trouxe", "trouxeste", "trouxe", "trouxemos", "trouxeram"],
-        "poder" : ["pude", "pudeste", "pôde", "pudemos", "puderam"],
+        "poder" : ["pude", "pudeste", "p\u00f4de", "pudemos", "puderam"],
         "saber" : ["soube", "soubeste", "soube", "soubemos", "souberam"],
-        "pôr" : ["pus", "puseste", "pôs", "pusemos", "puseram"],
+        "p\u00f4r" : ["pus", "puseste", "p\u00f4s", "pusemos", "puseram"],
         "querer" : ["quis", "quiseste", "quis", "quisemos", "quiseram"],
         "sair" : ["sa\u00ec", "sa\u00ecste", "saiu", "sa\u00ecmos", "sa\u00ecram"]
     };
