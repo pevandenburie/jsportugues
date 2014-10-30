@@ -25,7 +25,7 @@ Hello JsPortuguese
 
   <div>
   <!-- <form name="noimperfeito"> /-->
-    <select id="subject" name="subject" onChange="onSubjectChanged">
+    <select id="subject" name="subject">
       <option value="eu">eu
       <option value="tu">tu
       <option value="ele">ele
@@ -44,6 +44,7 @@ Hello JsPortuguese
   </div>
   
   <script>
+  
   var conjugueNoImperfeito = function() {
     console.log("conjugueNoImperfeito...");
     var subject = document.getElementById("subject").value;
@@ -54,7 +55,9 @@ Hello JsPortuguese
     
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
   }
+  
   document.getElementById('noimperfeitoB').onclick = conjugueNoImperfeito;
+  document.getElementById('subject').onchange = conjugueNoImperfeito;
   
   </script>
 
