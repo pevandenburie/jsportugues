@@ -19,6 +19,7 @@
   <!-- <script type="text/javascript" src="underscore-min.js"> </script> >
   <script type="text/javascript" src="underscore.string.min.js"> </script> -->
   <script type="text/javascript" src="imperfeito.js"> </script>
+  <script type="text/javascript" src="preterito.js"> </script>
 </head>
 
 <body>
@@ -40,7 +41,7 @@ Hello JsPortuguese
       <option value="voces">voces
     </select>
     <input type="text" id="verb"></input>
-    <button id="noimperfeitoB">No imperfeito</button>
+    <button id="noimperfeito">No imperfeito</button>
     <div id="translatedText">Result...</div>
   <!-- </form> /-->
   </div>
@@ -58,7 +59,7 @@ Hello JsPortuguese
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
   }
   
-  document.getElementById('noimperfeitoB').onclick = conjugueNoImperfeito;
+  document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
   document.getElementById('subject').onchange = conjugueNoImperfeito;
   
   </script>
