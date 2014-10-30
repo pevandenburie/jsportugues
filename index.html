@@ -55,12 +55,9 @@ Hello JsPortuguese
   }
   document.getElementById('noimperfeitoB').onclick = conjugueNoImperfeito;
   
-  function noimperfeito(subject, verb) {
-    //if imperfeitoirregulares.has_key(verb):
-    //    return "{} {}".format(subject, imperfeitoirregulares[verb][verbe.subjectTerminaisonIndexes[subject]])
-    //else:
-    return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb);
-  }
+  //
+  //  Generic verb functions 
+  //
   
   function getgroup(verb) {
     if (verb.slice(verb.length-2) === "ar") {
@@ -82,7 +79,7 @@ Hello JsPortuguese
   }
 
 
-  var sujeitoTerminaisonIndexes = {
+  var subjectTerminaisonIndexes = {
     "eu" : 0,
     "tu" : 1,
     "voce" : 2,
@@ -92,7 +89,22 @@ Hello JsPortuguese
     "voces" : 4,
     "eles" : 4,
     "elas" : 5 
-  }  
+  }
+  
+  //
+  // Imperfeito functions
+  //
+  
+  // Entry point for imperfeito conjuging
+  function noimperfeito(subject, verb) {
+    if (imperfeitoirregulares.hasOwnProperty(verb)) {
+        return subject + " " + (imperfeitoirregulares[verb])[subjectTerminaisonIndexes[subject]];
+    }
+    else {
+        return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb);
+    }
+  }
+  
   
   var imperfeitoterminaisonsgroup1 = {
         "eu" : "ava",
@@ -129,6 +141,14 @@ Hello JsPortuguese
         }
     }
   }
+  
+  imperfeitoirregulares = {
+        "ser" : ["era", "eras", "era", "éramos", "eram"],
+        "ter" : ["tinha", "tinhas", "tinha", "tinhamos", "tinham"],
+        "vir" : ["vinha", "vinhas", "vinha", "vinhamos", "vinham"],
+        "por" : ["punha", "punhas", "punha", "punhamos", "punham"]
+    }
+
   
   </script>
 
