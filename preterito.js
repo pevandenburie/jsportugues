@@ -14,7 +14,7 @@ function nopreterito(subject, verb) {
 }
 
 
-var preteritoTerminaisonsGroup1 = ["ei", "aste", "ou", "amos", "aram"];
+var preteritoTerminaisonsGroup1 = ["ei", "aste", "ou", "\u00e1mos", "aram"];
 
 var preteritoTerminaisonsGroup2 = ["i", "este", "eu", "emos", "eram"];
 
