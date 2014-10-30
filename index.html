@@ -48,6 +48,7 @@ Hello JsPortuguese
   </div>
   
   <script>
+  var isImperfeitoNoPreterito = true;
   
   var conjugueNoImperfeito = function() {
     console.log("conjugueNoImperfeito...");
@@ -58,6 +59,8 @@ Hello JsPortuguese
     translatedText.innerText = noimperfeito(subject, verb);
     
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
+    
+    isImperfeitoNoPreterito = true;
   }
   
   var conjugueNoPreterito = function() {
@@ -67,12 +70,23 @@ Hello JsPortuguese
     var translatedText = document.getElementById("translatedText");
     
     translatedText.innerText = nopreterito(subject, verb);
+    
+    isImperfeitoNoPreterito = false;
+  }
+  
+  function updateLastConjuging() {
+    if (isImperfeitoNoPreterito) {
+        conjugueNoImperfeito();
+    }
+    else {
+        conjugueNoPreterito();
+    }
   }
   
   document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
   document.getElementById('nopreterito').onclick = conjugueNoPreterito;
   
-  document.getElementById('subject').onchange = conjugueNoImperfeito;
+  document.getElementById('subject').onchange = updateLastConjuging;
   
   </script>
 
