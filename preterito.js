@@ -14,7 +14,7 @@ function nopreterito(subject, verb) {
 }
 
 
-var preteritoTerminaisonsGroup1 = ["ei", "aste", "ou", "\u00e1mos", "aram"];
+var preteritoTerminaisonsGroup1 = ["ei", "aste", "ou", "ámos", "aram"];
 
 var preteritoTerminaisonsGroup2 = ["i", "este", "eu", "emos", "eram"];
 
@@ -33,11 +33,11 @@ var preteritoIrregulares =  {
         "dizer" : ["disse", "disseste", "disse", "dissemos", "disseram"],
         "fazer" : ["fiz", "fizeste", "fez", "fizemos", "fizeram"],
         "trazer" : ["trouxe", "trouxeste", "trouxe", "trouxemos", "trouxeram"],
-        "poder" : ["pude", "pudeste", "p\u00f4de", "pudemos", "puderam"],
+        "poder" : ["pude", "pudeste", "pôde", "pudemos", "puderam"],
         "saber" : ["soube", "soubeste", "soube", "soubemos", "souberam"],
-        "p\u00f4r" : ["pus", "puseste", "p\u00f4s", "pusemos", "puseram"],
+        "pôr" : ["pus", "puseste", "pôs", "pusemos", "puseram"],
         "querer" : ["quis", "quiseste", "quis", "quisemos", "quiseram"],
-        "sair" : ["sa\u00ed", "sa\u00edste", "saiu", "sa\u00edmos", "sa\u00edram"]
+        "sair" : ["saí", "saíste", "saiu", "saímos", "saíram"]
     };
 
 function getpreteritoterminaison(subject, verb) {
