@@ -35,7 +35,7 @@ var subjectTerminaisonIndexes = {
 	"nos" : 3,
 	"voces" : 4,
 	"eles" : 4,
-	"elas" : 5 
+	"elas" : 4
 }
 
 //
@@ -60,7 +60,9 @@ var imperfeitoterminaisonsgroup1 = {
 			"ele" : "ava",
 			"ela" : "ava",
 			"nos" : "avamos",
-			"voces" : "avam"
+			"voces" : "avam",
+			"eles" : "avam",
+			"elas" : "avam"
 	}
 
 var imperfeitoterminaisonsgroup2 = {
@@ -70,7 +72,9 @@ var imperfeitoterminaisonsgroup2 = {
 			"ele" : "ia",
 			"ela" : "ia",
 			"nos" : "iamos",
-			"voces" : "iam"
+			"voces" : "iam",
+			"eles" : "iam",
+			"elas" : "iam"
 	}
 
 var imperfeitoterminaisonsgroup3 = imperfeitoterminaisonsgroup2;
