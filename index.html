@@ -28,18 +28,7 @@
   JsPortuguese
 
   <div>
-    <select id="subject" name="subject">
-      <option value="eu">eu
-      <option value="tu">tu
-      <option value="ele">ele
-      <option value="ela">ela
-      <option value="voce">voce
-      <option value="nos">nos
-      <option value="vos">vos
-      <option value="eles">eles
-      <option value="elas">elas
-      <option value="voces">voces
-    </select>
+    <select id="subject" name="subject"></select>
     <input type="text" id="verb"></input>
     <button id="noimperfeito">No imperfeito</button>
     <button id="nopreterito">No preterito</button>
@@ -85,7 +74,18 @@
   document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
   document.getElementById('nopreterito').onclick = conjugueNoPreterito;
   
-  document.getElementById('subject').onchange = updateLastConjuging;
+  // Fill the list of subjects
+  var subjectList = document.getElementById('subject');
+  var subjects = ["eu", "tu", "ele", "ela", "voce", "nos", "eles", "elas", "voces"];
+  var i = 0;
+  var option;
+  for (i=0; i<subjects.length; i+=1) {
+    option = document.createElement("option");
+    option.text = subjects[i];
+    option.value = subjects[i];
+    subjectList.add(option);
+  }
+  subjectList.onchange = updateLastConjuging;
   
   </script>
 
