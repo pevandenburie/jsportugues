@@ -76,7 +76,7 @@
   
   // Fill the list of subjects
   var subjectList = document.getElementById('subject');
-  var subjects = ["eu", "tu", "ele", "ela", "voce", "nos", "eles", "elas", "voces"];
+  var subjects = Object.keys(subjectTerminaisonIndexes); // Get it from our portuguese JS module
   var i = 0;
   var option;
   for (i=0; i<subjects.length; i+=1) {
