@@ -5,7 +5,7 @@
 
 // Entry point for preterito conjuging
 function nopreterito(subject, verb) {
-    if (preteritoIrregulares.hasOwnProperty(verb)) {
+    if (_(preteritoIrregulares).has(verb)) {
         return subject + " " + (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
     }
     else {
@@ -41,10 +41,7 @@ var preteritoIrregulares =  {
     };
 
 function getpreteritoterminaison(subject, verb) {
-    if (preteritoIrregulares.hasOwnProperty(verb)) {
-        return (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
-    }
-    else if (1 == getgroup(verb)) {
+    if (1 == getgroup(verb)) {
         return preteritoTerminaisonsGroup1[subjectTerminaisonIndexes[subject]];
     }
     else if (2 == getgroup(verb)) {
