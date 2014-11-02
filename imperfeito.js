@@ -44,7 +44,7 @@ var subjectTerminaisonIndexes = {
 
 // Entry point for imperfeito conjuging
 function noimperfeito(subject, verb) {
-	if (imperfeitoirregulares.hasOwnProperty(verb)) {
+	if (_(imperfeitoirregulares).has(verb)) {
 			return subject + " " + (imperfeitoirregulares[verb])[subjectTerminaisonIndexes[subject]];
 	}
 	else {
@@ -80,7 +80,7 @@ var imperfeitoterminaisonsgroup2 = {
 var imperfeitoterminaisonsgroup3 = imperfeitoterminaisonsgroup2;
 
 function imperfeitoterminaison(subject, verb) {
-	if (imperfeitoterminaisonsgroup1.hasOwnProperty(subject)) {
+	if (_(imperfeitoterminaisonsgroup1).has(subject)) {
 			if (1 == getgroup(verb)) {
 					return imperfeitoterminaisonsgroup1[subject];
 			}
