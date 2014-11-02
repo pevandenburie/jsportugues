@@ -79,7 +79,7 @@
   var subjects = Object.keys(subjectTerminaisonIndexes); // Get it from our portuguese JS module
   var i = 0;
   var option;
-  for (i=0; i<subjects.length; i+=1) {
+  for (i=0, l=subjects.length; i<l; i+=1) {
     option = document.createElement("option");
     option.text = subjects[i];
     option.value = subjects[i];
