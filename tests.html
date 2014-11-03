@@ -29,6 +29,18 @@
       var group = 3;
       assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
+    
+    QUnit.test( "Test getgroup for unknown group", function( assert ) {
+      var verb = "unknownverb";
+      var group = undefined;
+      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+    });
+    
+    QUnit.test( "Test getgroup for empty string", function( assert ) {
+      var verb = "";
+      var group = undefined;
+      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+    });
   </script>
   <!-- <script src="tests.js"></script> -->
 </body>
