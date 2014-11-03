@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit basic example</title>
+  <link rel="stylesheet" href="code.jquery.com/qunit/qunit-1.15.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="code.jquery.com/qunit/qunit-1.15.0.js"></script>
+  <script src="verb.js"> </script>
+  <script>
+    QUnit.test( "Test getgroup for group 1", function( assert ) {
+      var verb = "cantar";
+      var group = 1;
+      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+    });
+    
+    QUnit.test( "Test getgroup for group 2", function( assert ) {
+      var verb = "comer";
+      var group = 2;
+      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+    });
+    
+    QUnit.test( "Test getgroup for group 3", function( assert ) {
+      var verb = "sair";
+      var group = 3;
+      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+    });
+  </script>
+  <!-- <script src="tests.js"></script> -->
+</body>
+</html>
