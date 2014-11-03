@@ -15,31 +15,31 @@
     QUnit.test( "Test getgroup for group 1", function( assert ) {
       var verb = "cantar";
       var group = 1;
-      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+      assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
     
     QUnit.test( "Test getgroup for group 2", function( assert ) {
       var verb = "comer";
       var group = 2;
-      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+      assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
     
     QUnit.test( "Test getgroup for group 3", function( assert ) {
       var verb = "sair";
       var group = 3;
-      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+      assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
     
     QUnit.test( "Test getgroup for unknown group", function( assert ) {
       var verb = "unknownverb";
       var group = undefined;
-      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+      assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
     
     QUnit.test( "Test getgroup for empty string", function( assert ) {
       var verb = "";
       var group = undefined;
-      assert.equal( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+      assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
   </script>
   <!-- <script src="tests.js"></script> -->
