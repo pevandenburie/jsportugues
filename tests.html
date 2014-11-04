@@ -31,7 +31,7 @@
       assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
     });
     
-    QUnit.test( "Test getgroup for unknown group", function( assert ) {
+    QUnit.test( "Test getgroup for not valid verb", function( assert ) {
       var verb = "unknownverb";
       var group = undefined;
       assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
@@ -41,6 +41,37 @@
       var verb = "";
       var group = undefined;
       assert.deepEqual( group, getgroup(verb), "We expect verb " + verb + " to be of group" + group );
+    });
+    
+    QUnit.module( "Tests verb.radical" );
+    QUnit.test( "Test radical for group 1", function( assert ) {
+      var verb = "cantar";
+      var r = "cant";
+      assert.deepEqual( r, radical(verb), "We expect verb " + verb + " to have radical" + r );
+    });
+    
+    QUnit.test( "Test radical for group 2", function( assert ) {
+      var verb = "comer";
+      var r = "com";
+      assert.deepEqual( r, radical(verb), "We expect verb " + verb + " to have radical" + r );
+    });
+    
+    QUnit.test( "Test radical for group 3", function( assert ) {
+      var verb = "sair";
+      var r = "sa";
+      assert.deepEqual( r, radical(verb), "We expect verb " + verb + " to have radical" + r );
+    });
+    
+    QUnit.test( "Test radical for not valid verb (no specific handling here)", function( assert ) {
+      var verb = "unknownverb";
+      var r = "unknownve";
+      assert.deepEqual( r, radical(verb), "We expect verb " + verb + " to have radical" + r );
+    });
+    
+    QUnit.test( "Test radical for empty string (no specific handling here)", function( assert ) {
+      var verb = "";
+      var r = "";
+      assert.deepEqual( r, radical(verb), "We expect verb " + verb + " to have radical" + r );
     });
   </script>
   <!-- <script src="tests.js"></script> -->
