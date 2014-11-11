@@ -14,6 +14,7 @@ function getgroup(verb) {
 	}
 	else {
 			console.log("no group !");
+			return undefined;
 	}
 }
 
