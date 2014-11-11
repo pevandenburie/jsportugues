@@ -25,20 +25,47 @@
 <body>
   JsPortuguese - Exo Preterito
   <div>
+    <br>
     <div id=question>...</div>
     <input type="text" id="useranswer"></input>
     <button id="submit">submit!</button>
-    <div id=answer>...</div>
+    <div id=message>...</div>
+    <br><br>
     Score:
-    <div id=answer>...</div>
+    <div id=score>...</div>
   </div>
   
   <script>
+  
+    // The answer submitting function
+    function submitAnswer()
+    {
+      var useranswer = document.getElementById('useranswer').value;
+      
+      // Display the solution
+      if (useranswer === solution) {
+        document.getElementById('message').innerText = "Right!  (" + solution + ")";
+      }
+      else {
+        document.getElementById('message').innerText = "Wrong!  (" + solution + ")";
+      }
+    }
+    
+    
+    // Init
+    document.getElementById('submit').onclick = submitAnswer;
+    
+    
+    
     // Select a subject and a verb 
     var subject = "eu";
     var verb = "cantar";
+    var solution = "eu cantei";
+    
     var question = subject + " (" + verb + ")";
     document.getElementById('question').innerText = question;
+    
+    
   </script>
 
 </body>
