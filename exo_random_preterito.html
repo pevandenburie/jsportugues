@@ -50,6 +50,16 @@
         document.getElementById('message').innerText = "Wrong!  (" + solution + ")";
       }
     }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateRandomSubject() {
+      var subjects = _(subjectTerminaisonIndexes).keys();
+      var idx = getRandomInt(0, _.size(subjects)-1 );
+      return subjects[idx];
+    }
     
     
     // Init
@@ -58,9 +68,9 @@
     
     
     // Select a subject and a verb 
-    var subject = "eu";
+    var subject = generateRandomSubject();
     var verb = "cantar";
-    var solution = "eu cantei";
+    var solution = nopreterito(subject, verb);;
     
     var question = subject + " (" + verb + ")";
     document.getElementById('question').innerText = question;
