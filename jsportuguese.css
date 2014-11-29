@@ -1,6 +1,8 @@
 body {
     background-color: DarkSlateGray;
     font-family: "Arial";
+    color: white;
+    font-size: 20px;
 }
 
 h1 {
@@ -8,7 +10,3 @@ h1 {
     text-align: center;
 }
 
-p {
-    font-family: "Arial";
-    font-size: 20px;
-}
