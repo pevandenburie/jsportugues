@@ -53,27 +53,38 @@
       // Display the solution
       var currentLog = document.getElementById('answerslog').innerText;
       if (useranswer === question.solution) {
+        score.nbSuccess++;
         document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solution + ")" + "\n" + currentLog;
       }
       else {
+        score.nbFailure++;
         document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solution + ")" + "\n" + currentLog;
       }
       
       // Let's go for the next question!
+      refreshScore();
       refreshQuestion();
     }
 
-    var question; // Let it be global
+    // Global exo context
+    var question;
+    var score = { nbSuccess: 0, nbFailure: 0 };
+
     function refreshQuestion() {
       question = createQuestion();
       document.getElementById('question').innerText = question.text;
       document.getElementById('useranswer').value = "";
     }
 
+    function refreshScore() {
+      document.getElementById('score').innerText = score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
+    }
+
 
     // Init DOM
     document.getElementById('submit').onclick = submitAnswer;
     document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
+    refreshScore();
     refreshQuestion();
     
   </script>
