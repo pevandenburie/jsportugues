@@ -13,11 +13,17 @@ function generateRandomSubject() {
   return subjects[idx];
 }
 
+function generateRandomVerb() {
+  var verbs = _(preteritoIrregulares).keys();
+  var idx = getRandomInt(0, _.size(verbs)-1 );
+  return verbs[idx];
+}
+
 // Init of the question
 function createQuestion() {
   // Select a subject and a verb, and compute the solution
   var subject = generateRandomSubject();
-  var verb = "cantar";
+  var verb = generateRandomVerb();
   var solution = nopreterito(subject, verb);;
 
   var questionText = subject + " (" + verb + ")";
