@@ -20,6 +20,7 @@
   <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="preterito.exo.js" charset="UTF-8"> </script>
   <link rel="stylesheet" type="text/css" href="jsportuguese.css"> </style>
 </head>
 
@@ -56,28 +57,6 @@
       // Let's go for the next question!
       refreshQuestion();
     }
-
-    function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function generateRandomSubject() {
-      var subjects = _(subjectTerminaisonIndexes).keys();
-      var idx = getRandomInt(0, _.size(subjects)-1 );
-      return subjects[idx];
-    }
-    
-    // Init of the question
-    function createQuestion() {
-      // Select a subject and a verb, and compute the solution
-      var subject = generateRandomSubject();
-      var verb = "cantar";
-      var solution = nopreterito(subject, verb);;
-
-      var questionText = subject + " (" + verb + ")";
-      return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution };
-    }
-
 
     var question; // Let it be global
     function refreshQuestion() {
