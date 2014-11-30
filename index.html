@@ -78,8 +78,7 @@
   
   // Fill the list of subjects
   var subjectList = document.getElementById('subject');
-  //var subjects = Object.keys(subjectTerminaisonIndexes); // Get it from our JsPortugues module
-  var subjects = _(subjectTerminaisonIndexes).keys(); // Get it from our JsPortugues module
+  var subjects = jsportugues.subjects;
   var i = 0;
   var option;
   for (i=0, l=subjects.length; i<l; i+=1) {
