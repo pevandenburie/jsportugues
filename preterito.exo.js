@@ -2,6 +2,19 @@
 // Portuguese Preterito exercise
 //
 
+var verbList = [
+    "abrir",
+    "beber",
+    "buscar",
+    "cantar",
+    "correr",
+    "cair",
+    "descansar",
+    "falar"
+  ];
+
+var verbs = _.union(_(preteritoIrregulares).keys(), verbList);
+
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -14,7 +27,6 @@ function generateRandomSubject() {
 }
 
 function generateRandomVerb() {
-  var verbs = _(preteritoIrregulares).keys();
   var idx = getRandomInt(0, _.size(verbs)-1 );
   return verbs[idx];
 }
