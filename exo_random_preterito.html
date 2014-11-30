@@ -76,8 +76,7 @@
 
     // Init DOM
     document.getElementById('submit').onclick = submitAnswer;
-    document.getElementById('useranswer').onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
-    //document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
+    document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
     var question = generateQuestion();
     document.getElementById('question').innerText = question.text 
     
