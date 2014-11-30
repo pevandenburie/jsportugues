@@ -56,10 +56,12 @@
       var logEntry = document.createElement("DIV");
       if (useranswer === question.solution) {
         score.nbSuccess++;
+        logEntry.setAttribute("class", "right");
         logEntry.innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
       }
       else {
         score.nbFailure++;
+        logEntry.setAttribute("class", "wrong");
         logEntry.innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
       }
       logList.insertBefore(logEntry, logList.firstChild);
