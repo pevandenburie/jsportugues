@@ -1,5 +1,5 @@
-JsPortuguese
-------------
+JsPortugues
+-----------
 
 Tool written in HTML/JS to conjugue portuguese verb, with a very simple Web interface.
 

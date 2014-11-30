@@ -1,5 +1,5 @@
 //
-// Portuguese Imperfeito conjuging function
+// Portugues Imperfeito conjuging function
 //
 
 

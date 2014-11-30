@@ -1,5 +1,5 @@
 //
-// Portuguese Preterito exercise
+// Portugues Preterito exercise
 //
 
 var verbList = [

@@ -1,5 +1,5 @@
 //
-// Portuguese Preterito conjuging function
+// Portugues Preterito conjuging function
 //
 
 
