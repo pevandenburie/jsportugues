@@ -44,11 +44,11 @@
       var useranswer = document.getElementById('useranswer').value;
       
       // Display the solution
-      if (useranswer === solution) {
-        document.getElementById('message').innerText = "\"" + useranswer + "\"" + " Right!  (" + solution + ")";
+      if (useranswer === question.solution) {
+        document.getElementById('message').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solution + ")";
       }
       else {
-        document.getElementById('message').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + solution + ")";
+        document.getElementById('message').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solution + ")";
       }
     }
 
@@ -62,20 +62,26 @@
       return subjects[idx];
     }
     
+    // Init of the question
+    function generateQuestion() {
+      // Select a subject and a verb, and compute the solution
+      var subject = generateRandomSubject();
+      var verb = "cantar";
+      var solution = nopreterito(subject, verb);;
+
+      var questionText = subject + " (" + verb + ")";
+      return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution };
+    }
     
-    // Init
+
+    // Init DOM
     document.getElementById('submit').onclick = submitAnswer;
     document.getElementById('useranswer').onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
+    //document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
+    var question = generateQuestion();
+    document.getElementById('question').innerText = question.text 
     
     
-    
-    // Select a subject and a verb 
-    var subject = generateRandomSubject();
-    var verb = "cantar";
-    var solution = nopreterito(subject, verb);;
-    
-    var question = subject + " (" + verb + ")";
-    document.getElementById('question').innerText = question;
     
     
   </script>
