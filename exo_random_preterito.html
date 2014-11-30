@@ -28,7 +28,6 @@
   <h1>JsPortugues - Exo Preterito</h1>
   <div>
     <br>
-    Score:
     <div id=score>...</div>
     <br>
     <label id=question>...</label>
@@ -78,7 +77,7 @@
     }
 
     function refreshScore() {
-      document.getElementById('score').innerText = score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
+      document.getElementById('score').innerText = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
     }
 
 
