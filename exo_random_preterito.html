@@ -34,7 +34,7 @@
     <input type="text" id="useranswer" autofocus></input>
     <button id="submit">submit!</button>
     <br><br>
-    <div id=answerslog>...</div>
+    <div id=answerslog></div>
     <br><br>
   </div>
   
@@ -51,15 +51,18 @@
       }
 
       // Display the solution
-      var currentLog = document.getElementById('answerslog').innerText;
+      var logList = document.getElementById("answerslog");
+
+      var logEntry = document.createElement("DIV");
       if (useranswer === question.solution) {
         score.nbSuccess++;
-        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")" + "\n" + currentLog;
+        logEntry.innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
       }
       else {
         score.nbFailure++;
-        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")" + "\n" + currentLog;
+        logEntry.innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
       }
+      logList.insertBefore(logEntry, logList.firstChild);
       
       // Let's go for the next question!
       refreshScore();
