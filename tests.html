@@ -106,19 +106,19 @@
     QUnit.test( "Test nopreterito for group 1", function( assert ) {
       var verb = "cantar";
       var conjugued = "cantei";
-      assert.deepEqual( nopreterito("eu", verb), "eu " + conjugued, "We expect verb " + verb + " to be in imperfeito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in imperfeito" + conjugued );
     });
     
     QUnit.test( "Test nopreterito for group 2", function( assert ) {
       var verb = "comer";
       var conjugued = "comi";
-      assert.deepEqual( nopreterito("eu", verb), "eu " + conjugued, "We expect verb " + verb + " to be in imperfeito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in imperfeito" + conjugued );
     });
     
     QUnit.test( "Test nopreterito for group 3", function( assert ) {
       var verb = "sair";
       var conjugued = "saí";
-      assert.deepEqual( nopreterito("eu", verb), "eu " + conjugued, "We expect verb " + verb + " to be in imperfeito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in imperfeito" + conjugued );
     });
   </script>
   <!-- <script src="tests.js"></script> -->

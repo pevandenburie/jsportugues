@@ -6,10 +6,10 @@
 // Entry point for preterito conjuging
 function nopreterito(subject, verb) {
     if (_(preteritoIrregulares).has(verb)) {
-        return subject + " " + (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
+        return (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
     }
     else {
-        return subject + " " + radical(verb) + getpreteritoterminaison(subject, verb);
+        return radical(verb) + getpreteritoterminaison(subject, verb);
     }
 }
 

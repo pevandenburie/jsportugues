@@ -3,14 +3,14 @@
 //
 
 var verbList = [
-    "abrir",
-    "beber",
-    "buscar",
-    "cantar",
-    "correr",
-    "cair",
-    "descansar",
-    "falar"
+  "abrir",
+  "beber",
+  "buscar",
+  "cantar",
+  "correr",
+  "cair",
+  "descansar",
+  "falar"
   ];
 
 var verbs = _.union(_(preteritoIrregulares).keys(), verbList);
@@ -36,8 +36,9 @@ function createQuestion() {
   // Select a subject and a verb, and compute the solution
   var subject = generateRandomSubject();
   var verb = generateRandomVerb();
-  var solution = nopreterito(subject, verb);;
+  var solution = nopreterito(subject, verb);
+  var solutionFullText = subject + " " + solution;
 
   var questionText = subject + " (" + verb + ")";
-  return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution };
+  return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution, 'solutionFullText': solutionFullText };
 }

@@ -55,11 +55,11 @@
       var currentLog = document.getElementById('answerslog').innerText;
       if (useranswer === question.solution) {
         score.nbSuccess++;
-        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solution + ")" + "\n" + currentLog;
+        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")" + "\n" + currentLog;
       }
       else {
         score.nbFailure++;
-        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solution + ")" + "\n" + currentLog;
+        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")" + "\n" + currentLog;
       }
       
       // Let's go for the next question!
