@@ -27,13 +27,14 @@
   <h1>JsPortuguese - Exo Preterito</h1>
   <div>
     <br>
+    Score:
+    <div id=score>...</div>
+    <br>
     <div id=question>...</div>
     <input type="text" id="useranswer" autofocus></input>
     <button id="submit">submit!</button>
-    <div id=message>...</div>
+    <div id=answerslog>...</div>
     <br><br>
-    Score:
-    <div id=score>...</div>
   </div>
   
   <script>
@@ -44,12 +45,16 @@
       var useranswer = document.getElementById('useranswer').value;
       
       // Display the solution
+      var currentLog = document.getElementById('answerslog').innerText;
       if (useranswer === question.solution) {
-        document.getElementById('message').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solution + ")";
+        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solution + ")" + "\n" + currentLog;
       }
       else {
-        document.getElementById('message').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solution + ")";
+        document.getElementById('answerslog').innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solution + ")" + "\n" + currentLog;
       }
+      
+      // Let's go for the next question!
+      refreshQuestion();
     }
 
     function getRandomInt(min, max) {
@@ -63,7 +68,7 @@
     }
     
     // Init of the question
-    function generateQuestion() {
+    function createQuestion() {
       // Select a subject and a verb, and compute the solution
       var subject = generateRandomSubject();
       var verb = "cantar";
@@ -72,16 +77,20 @@
       var questionText = subject + " (" + verb + ")";
       return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution };
     }
+
+
+    var question; // Let it be global
+    function refreshQuestion() {
+      question = createQuestion();
+      document.getElementById('question').innerText = question.text;
+      document.getElementById('useranswer').value = "";
+    }
     
 
     // Init DOM
     document.getElementById('submit').onclick = submitAnswer;
     document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
-    var question = generateQuestion();
-    document.getElementById('question').innerText = question.text 
-    
-    
-    
+    refreshQuestion();
     
   </script>
 
