@@ -84,19 +84,19 @@
     QUnit.test( "Test noimperfeito for group 1", function( assert ) {
       var verb = "cantar";
       var conjugued = "cantava";
-      assert.deepEqual( noimperfeito("eu", verb), "eu " + conjugued, "We expect verb " + verb + " to be in Imperfeito" + conjugued );
+      assert.deepEqual( noimperfeito("eu", verb), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
     });
     
     QUnit.test( "Test noimperfeito for group 2", function( assert ) {
       var verb = "comer";
       var conjugued = "comia";
-      assert.deepEqual( noimperfeito("eu", verb), "eu " + conjugued, "We expect verb " + verb + " to be in Imperfeito" + conjugued );
+      assert.deepEqual( noimperfeito("eu", verb), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
     });
     
     QUnit.test( "Test noimperfeito for group 3", function( assert ) {
       var verb = "sair";
       var conjugued = "saia";
-      assert.deepEqual( noimperfeito("eu", verb), "eu " + conjugued, "We expect verb " + verb + " to be in Imperfeito" + conjugued );
+      assert.deepEqual( noimperfeito("eu", verb), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
     });
   </script>
   
@@ -106,25 +106,25 @@
     QUnit.test( "Test nopreterito for group 1", function( assert ) {
       var verb = "cantar";
       var conjugued = "cantei";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
     
     QUnit.test( "Test nopreterito for group 2", function( assert ) {
       var verb = "comer";
       var conjugued = "comi";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
     
     QUnit.test( "Test nopreterito for group 3", function( assert ) {
       var verb = "abrir";
       var conjugued = "abri";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
     
     QUnit.test( "Test nopreterito for irregulares", function( assert ) {
       var verb = "sair";
       var conjugued = "saí";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito" + conjugued );
+      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
   </script>
   
@@ -134,31 +134,31 @@
     QUnit.test( "Test nopresentedoconjunctivo for group 1", function( assert ) {
       var verb = "cantar";
       var conjugued = "cante";
-      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo" + conjugued );
+      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
     });
     
     QUnit.test( "Test nopresentedoconjunctivo for group 2", function( assert ) {
       var verb = "comer";
       var conjugued = "coma";
-      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo" + conjugued );
+      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
     });
     
     QUnit.test( "Test nopresentedoconjunctivo for group 3", function( assert ) {
       var verb = "abrir";
       var conjugued = "abra";
-      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo" + conjugued );
+      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
     });
     
     QUnit.test("Test nopresentedoconjunctivo for altered verb", function(assert) {
       var verb = "conferir";
       var conjugued = "confira";
-      assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo" + conjugued);
+      assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
     });
       
     QUnit.test("Test nopresentedoconjunctivo for irregular verb", function(assert) {
       var verb = "dar";
       var conjugued = "dê";
-      assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo" + conjugued);
+      assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
     });
   </script>
   <!-- <script src="tests.js"></script> -->

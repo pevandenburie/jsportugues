@@ -6,10 +6,10 @@
 // Entry point for imperfeito conjuging
 function noimperfeito(subject, verb) {
 	if (_(imperfeitoirregulares).has(verb)) {
-			return subject + " " + (imperfeitoirregulares[verb])[subjectTerminaisonIndexes[subject]];
+		return (imperfeitoirregulares[verb])[subjectTerminaisonIndexes[subject]];
 	}
 	else {
-			return subject + " " + radical(verb) + imperfeitoterminaison(subject, verb);
+		return radical(verb) + imperfeitoterminaison(subject, verb);
 	}
 }
 
