@@ -63,7 +63,7 @@
     var verb =  document.getElementById("verb").value;
     var translatedText = document.getElementById("translatedText");
     
-    translatedText.innerText = nopreterito(subject, verb);
+    translatedText.innerText = subject + " " + nopreterito(subject, verb);
     
     conjuguingFunc = conjugueNoPreterito;
     //isImperfeitoNoPreterito = false;
@@ -75,7 +75,7 @@
     var verb =  document.getElementById("verb").value;
     var translatedText = document.getElementById("translatedText");
     
-    translatedText.innerText = nopresentedoconjunctivo(subject, verb);
+    translatedText.innerText = subject + " " + nopresentedoconjunctivo(subject, verb);
     
     conjuguingFunc = conjugueNoPresenteDoConjunctivo;
     //isImperfeitoNoPreterito = false;
