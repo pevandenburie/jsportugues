@@ -20,6 +20,17 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    color: lime;
+}
+
+a:link {
+    color: white;
+}
+a:visited {
+    color: white;
+}
+
 .wrong {
     color: red;
 }
