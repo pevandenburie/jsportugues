@@ -4,9 +4,29 @@
 
 
 function nopresentedoconjunctivo(subject, verb) {
-    return radical(verb) + getpresentedoconjunctivoterminaison(subject, verb);
+    if (_(presentedoconjunctivoAlteredRadical).has(verb)) {
+        return presentedoconjunctivoAlteredRadical[verb] + getpresentedoconjunctivoterminaison(subject, verb);
+    }
+    else {
+        return radical(verb) + getpresentedoconjunctivoterminaison(subject, verb);
+    }
 }
 
+
+var presentedoconjunctivoAlteredRadical =
+    {
+        "conferir" : "confir",
+        "despir" : "disp",
+        "dormir" : "durm",
+        "ouvir" : "ouç",
+        "pedir" : "peç",
+        "repetir" : "repit",
+        "seguir" : "sig",
+        "sentir" : "sint",
+        "servir" : "sirv",
+        "subir" : "sub",    // Nao entendo onde esta a alteraco...
+        "vestir" : "vist"
+    }
 
 var presentedoconjunctivoTerminaisonsGroup1 = ["e", "es", "e", "emos", "em"];
 
