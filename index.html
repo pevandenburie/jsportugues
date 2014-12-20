@@ -23,6 +23,7 @@
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="imperfeito.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
   <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style>
 </head>
 
@@ -34,11 +35,13 @@
     <input type="text" id="verb"  autocapitalize="off" autofocus></input>
     <button id="noimperfeito">No imperfeito</button>
     <button id="nopreterito">No preterito</button>
+    <button id="nopresenteconjunctivo">No presente do conjuctivo</button>
     <div id="translatedText">...</div>
   </div>
   
   <script>
   var isImperfeitoNoPreterito = true;
+  var conjuguingFunc = conjugueNoImperfeito;
   
   var conjugueNoImperfeito = function() {
     console.log("conjugueNoImperfeito...");
@@ -50,7 +53,8 @@
     
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
     
-    isImperfeitoNoPreterito = true;
+    conjuguingFunc = conjugueNoImperfeito;
+    //isImperfeitoNoPreterito = true;
   }
   
   var conjugueNoPreterito = function() {
@@ -61,20 +65,35 @@
     
     translatedText.innerText = nopreterito(subject, verb);
     
-    isImperfeitoNoPreterito = false;
+    conjuguingFunc = conjugueNoPreterito;
+    //isImperfeitoNoPreterito = false;
+  }
+  
+  var conjugueNoPresenteDoConjunctivo = function() {
+    console.log("conjugueNoPresenteDoConjunctivo...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+    var translatedText = document.getElementById("translatedText");
+    
+    translatedText.innerText = nopresentedoconjunctivo(subject, verb);
+    
+    conjuguingFunc = conjugueNoPresenteDoConjunctivo;
+    //isImperfeitoNoPreterito = false;
   }
   
   function updateLastConjuging() {
-    if (isImperfeitoNoPreterito) {
+    conjuguingFunc();
+    /*if (isImperfeitoNoPreterito) {
         conjugueNoImperfeito();
     }
     else {
         conjugueNoPreterito();
-    }
+    }*/
   }
   
   document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
   document.getElementById('nopreterito').onclick = conjugueNoPreterito;
+  document.getElementById('nopresenteconjunctivo').onclick = conjugueNoPresenteDoConjunctivo;
   
   // Fill the list of subjects
   var subjectList = document.getElementById('subject');
