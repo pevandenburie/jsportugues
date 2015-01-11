@@ -1,0 +1,100 @@
+<!DOCTYPE=html>
+
+<head>
+  <title>JsPortugues - Exo Presente do Conjunctivo</title>
+  <link rel="shortcut icon" type="image/png" href="flag_icon_pt.gif" />
+  
+  <script>
+    /*var _  = require('underscore');
+
+    // Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
+    _.str = require('underscore.string');
+
+    // Mix in non-conflict functions to Underscore namespace if you want
+    _.mixin(_.str.exports());
+
+    // All functions, include conflict, will be available through _.str object
+    _.str.include('Underscore.string', 'string'); // => true*/
+  </script>
+  <script type="text/javascript" src="underscore-min.js"> </script>
+  <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
+  <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.exo.js" charset="UTF-8"> </script>
+  
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style>
+</head>
+
+<body>
+  <h1>JsPortugues - Exo Presente do Conjunctivo</h1>
+  <div>
+    <br>
+    <div id=score>...</div>
+    <br>
+    <label id=question>...</label>
+    <input type="text" id="useranswer"  autocapitalize="off" autofocus></input>
+    <button id="submit">submit!</button>
+    <br><br>
+    <div id=answerslog></div>
+    <br><br>
+  </div>
+  
+  <script>
+  
+    // The answer submitting function
+    function submitAnswer()
+    {
+      var useranswer = document.getElementById('useranswer').value;
+      
+      // Check that's not a compulsive press on ENTER
+      if (useranswer === "") {
+        return;
+      }
+
+      // Display the solution
+      var logList = document.getElementById("answerslog");
+
+      var logEntry = document.createElement("DIV");
+      if (useranswer === question.solution) {
+        score.nbSuccess++;
+        logEntry.setAttribute("class", "right");
+        logEntry.innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
+      }
+      else {
+        score.nbFailure++;
+        logEntry.setAttribute("class", "wrong");
+        logEntry.innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
+      }
+      logList.insertBefore(logEntry, logList.firstChild);
+      
+      // Let's go for the next question!
+      refreshScore();
+      refreshQuestion();
+    }
+
+    // Global exo context
+    var question;
+    var score = { nbSuccess: 0, nbFailure: 0 };
+
+    function refreshQuestion() {
+      question = createQuestion();
+      document.getElementById('question').innerText = question.text;
+      document.getElementById('useranswer').value = "";
+    }
+
+    function refreshScore() {
+      document.getElementById('score').innerText = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
+    }
+
+
+    // Init DOM
+    document.getElementById('submit').onclick = submitAnswer;
+    document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
+    refreshScore();
+    refreshQuestion();
+    
+  </script>
+
+</body>
