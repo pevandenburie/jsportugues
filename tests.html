@@ -161,6 +161,28 @@
       assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
     });
   </script>
+  
+  <script src="imperfeitodoconjunctivo.js"></script>
+  <script>
+    QUnit.module( "Tests Imperfeito do Conjunctivo" );
+    QUnit.test( "Test noimperfeitodoconjunctivo for group 1", function(assert) {
+      var verb = "cantar";
+      var conjugued = "cantasse";
+      assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+    });
+    
+    QUnit.test( "Test noimperfeitodoconjunctivo for group 2", function(assert) {
+      var verb = "comer";
+      var conjugued = "comesse";
+      assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+    });
+    
+    QUnit.test( "Test noimperfeitodoconjunctivo for group 3", function(assert) {
+      var verb = "abrir";
+      var conjugued = "abrisse";
+      assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+    });
+  </script>
   <!-- <script src="tests.js"></script> -->
 </body>
 </html>
