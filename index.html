@@ -24,6 +24,7 @@
   <script type="text/javascript" src="imperfeito.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="imperfeitodoconjunctivo.js" charset="UTF-8"> </script>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style>
@@ -38,6 +39,7 @@
     <button id="noimperfeito">No imperfeito</button>
     <button id="nopreterito">No preterito</button>
     <button id="nopresenteconjunctivo">No presente do conjuctivo</button>
+    <button id="noimperfeitoconjunctivo">No imperfeito do conjuctivo</button>
     <div id="translatedText">...</div>
   </div>
   <br><br>
@@ -86,19 +88,25 @@
     //isImperfeitoNoPreterito = false;
   }
   
+  var conjugueNoImperfeitoDoConjunctivo = function() {
+    console.log("conjugueNoImperfeitoDoConjunctivo...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+    var translatedText = document.getElementById("translatedText");
+    
+    translatedText.innerText = subject + " " + noimperfeitodoconjunctivo(subject, verb);
+    
+    conjuguingFunc = conjugueNoImperfeitoDoConjunctivo;
+  }
+  
   function updateLastConjuging() {
     conjuguingFunc();
-    /*if (isImperfeitoNoPreterito) {
-        conjugueNoImperfeito();
-    }
-    else {
-        conjugueNoPreterito();
-    }*/
   }
   
   document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
   document.getElementById('nopreterito').onclick = conjugueNoPreterito;
   document.getElementById('nopresenteconjunctivo').onclick = conjugueNoPresenteDoConjunctivo;
+  document.getElementById('noimperfeitoconjunctivo').onclick = conjugueNoImperfeitoDoConjunctivo;
   
   // Fill the list of subjects
   var subjectList = document.getElementById('subject');
