@@ -182,6 +182,13 @@
       var conjugued = "abrisse";
       assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
     });
+    
+    
+    QUnit.test("Test noimperfeitodoconjunctivo for irregular verb", function(assert) {
+      var verb = "dar";
+      var conjugued = "desse";
+      assert.deepEqual(noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued);
+    });
   </script>
   <!-- <script src="tests.js"></script> -->
 </body>
