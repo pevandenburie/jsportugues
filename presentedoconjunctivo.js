@@ -50,8 +50,10 @@ var presentedoconjunctivoIrregulares =
         "trazer" : ["traga", "tragas", "traga", "tragamos", "tragam"],
         "querer" : ["queira", "queiras", "queira", "queiramos", "queiram"],
         "haver" : ["", "", "haja", "", ""],
+        /* My irregulares found: */ 
+        "cair" : ["caia", "caias", "caia", "caiamos", "caiam"] 
     }
-        
+
         
 var presentedoconjunctivoTerminaisonsGroup1 = ["e", "es", "e", "emos", "em"];
 
