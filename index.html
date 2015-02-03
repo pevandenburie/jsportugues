@@ -18,6 +18,14 @@
     // All functions, include conflict, will be available through _.str object
     _.str.include('Underscore.string', 'string'); // => true*/
   </script>
+  
+    <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
   <script type="text/javascript" src="underscore-min.js"> </script>
   <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
@@ -27,19 +35,27 @@
   <script type="text/javascript" src="imperfeitodoconjunctivo.js" charset="UTF-8"> </script>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style>
+  <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
 </head>
 
 <body>
-  <h1>JsPortugues</h1>
+  <div class="container">
+    <div class="page-header">
+      <h1>JsPortugues</h1>
+    </div>
+  </div>
 
-  <div>
-    <select id="subject" name="subject"></select>
-    <input type="text" id="verb"  autocapitalize="off" autofocus></input>
-    <button id="noimperfeito">No imperfeito</button>
-    <button id="nopreterito">No preterito</button>
-    <button id="nopresenteconjunctivo">No presente do conjuctivo</button>
-    <button id="noimperfeitoconjunctivo">No imperfeito do conjuctivo</button>
+  <div class="container-fluid">
+    <div class="row">
+      <select id="subject" name="subject"></select>
+      <input type="text" id="verb"  autocapitalize="off" autofocus></input>
+    </div>
+    <div class="row">
+      <div class="col-sm-3"><button id="noimperfeito" class="btn btn-default">No imperfeito</button></div>
+      <div class="col-sm-3"><button id="nopreterito" class="btn btn-default">No preterito</button></div>
+      <div class="col-sm-3"><button id="nopresenteconjunctivo" class="btn btn-default">No presente do conjuctivo</button></div>
+      <div class="col-sm-3"><button id="noimperfeitoconjunctivo" class="btn btn-default">No imperfeito do conjuctivo</button></div>
+    </div>
     <div id="translatedText">...</div>
   </div>
   <br><br>
