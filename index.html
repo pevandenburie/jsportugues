@@ -47,22 +47,25 @@
 
   <div class="container-fluid">
     <div class="row">
-      <select id="subject" name="subject"></select>
-      <input type="text" id="verb"  autocapitalize="off" autofocus></input>
+      <select class="col-sm-4" id="subject" name="subject"></select>
+      <input class="col-sm-8" type="text" id="verb"  autocapitalize="off" autofocus></input>
     </div>
     <div class="row">
-      <div class="col-sm-3"><button id="noimperfeito" class="btn btn-default">No imperfeito</button></div>
-      <div class="col-sm-3"><button id="nopreterito" class="btn btn-default">No preterito</button></div>
-      <div class="col-sm-3"><button id="nopresenteconjunctivo" class="btn btn-default">No presente do conjuctivo</button></div>
-      <div class="col-sm-3"><button id="noimperfeitoconjunctivo" class="btn btn-default">No imperfeito do conjuctivo</button></div>
+      <div class="row">
+        <div class="col-sm-6"><button id="noimperfeito" class="btn btn-default btn-block">No imperfeito</button></div>
+        <div class="col-sm-6"><button id="nopreterito" class="btn btn-default btn-block">No preterito</button></div>
+      </div><div class="row">
+        <div class="col-sm-6"><button id="nopresenteconjunctivo" class="btn btn-default btn-block">No presente<br>do conjuctivo</button></div>
+        <div class="col-sm-6"><button id="noimperfeitoconjunctivo" class="btn btn-default btn-block">No imperfeito<br>do conjuctivo</button></div>
+      </div>
     </div>
     <div id="translatedText">...</div>
   </div>
   <br><br>
   <h2>Exercicios:</h2>
-    <a href="exo_random_preterito.html" class="btn btn-link">Preterito do Indicativo</a><br>
-    <a href="exo_random_presentedoconjunctivo.html" class="btn btn-link">Presente do Conjunctivo</a><br>
-    <a href="exo_random_imperfeitodoconjunctivo.html" class="btn btn-link">Imperfeito do Conjunctivo</a>
+    <a href="exo_random_preterito.html" class="btn btn-default btn-block">Preterito do Indicativo</a>
+    <a href="exo_random_presentedoconjunctivo.html" class="btn btn-default btn-block">Presente do Conjunctivo</a>
+    <a href="exo_random_imperfeitodoconjunctivo.html" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
   <script>
   var isImperfeitoNoPreterito = true;
   var conjuguingFunc = conjugueNoImperfeito;
