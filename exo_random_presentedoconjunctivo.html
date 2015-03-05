@@ -16,30 +16,45 @@
     // All functions, include conflict, will be available through _.str object
     _.str.include('Underscore.string', 'string'); // => true*/
   </script>
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
+  
   <script type="text/javascript" src="underscore-min.js"> </script>
   <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="presentedoconjunctivo.exo.js" charset="UTF-8"> </script>
   
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style>
+  <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
 </head>
 
 <body>
-  <h1>JsPortugues - Exo Presente do Conjunctivo</h1>
-  <div>
-    <br>
-    <div id=score>...</div>
-    <br>
-    <label id=question>...</label>
-    <input type="text" id="useranswer"  autocapitalize="off" autofocus></input>
-    <button id="submit">submit!</button>
-    <br><br>
-    <div id=answerslog></div>
-    <br><br>
+  <div class="container">
+    <div class="page-header">
+      <h1>JsPortugues - Exo Presente do Conjunctivo</h1>
+    </div>
   </div>
+  
+  <div class="container-fluid">
+    <div id=score>...</div>
+    <!--<form class="form-horizontal" role="form">
+    <div class="form-group">-->
+    <div class="row">
+      <div class="col-sm-4"><label id=question>...</label></div>
+      <div class="col-sm-4"><input type="text" id="useranswer"  autocapitalize="off" autofocus></input></div>
+      <div class="col-sm-4"><button id="submit">submit!</button></div>
+    <!--</form>-->
+    </div>
+    <div id=answerslog></div>
+  </div>
+      
   
   <script>
   
