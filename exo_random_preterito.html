@@ -60,12 +60,12 @@
       if (useranswer === question.solution) {
         score.nbSuccess++;
         logEntry.setAttribute("class", "right");
-        logEntry.innerText = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
+        logEntry.textContent = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
       }
       else {
         score.nbFailure++;
         logEntry.setAttribute("class", "wrong");
-        logEntry.innerText = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
+        logEntry.textContent = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
       }
       logList.insertBefore(logEntry, logList.firstChild);
       
@@ -80,12 +80,12 @@
 
     function refreshQuestion() {
       question = createQuestion();
-      document.getElementById('question').innerText = question.text;
+      document.getElementById('question').textContent = question.text;
       document.getElementById('useranswer').value = "";
     }
 
     function refreshScore() {
-      document.getElementById('score').innerText = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
+      document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
     }
 
 

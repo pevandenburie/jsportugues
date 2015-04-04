@@ -68,52 +68,49 @@
   <script>
   var isImperfeitoNoPreterito = true;
   var conjuguingFunc = conjugueNoImperfeito;
+      
+  function setTranslatedText( text ) {
+    var translatedText = document.getElementById("translatedText");
+    translatedText.textContent = text;    // innerText NOT supported by firefox
+  }
   
   var conjugueNoImperfeito = function() {
     console.log("conjugueNoImperfeito...");
     var subject = document.getElementById("subject").value;
     var verb =  document.getElementById("verb").value;
-    var translatedText = document.getElementById("translatedText");
     
-    translatedText.innerText = subject + " " + noimperfeito(subject, verb);
-    
+    setTranslatedText(subject + " " + noimperfeito(subject, verb));
     //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
     
     conjuguingFunc = conjugueNoImperfeito;
-    //isImperfeitoNoPreterito = true;
   }
   
   var conjugueNoPreterito = function() {
     console.log("conjugueNoPreterito...");
     var subject = document.getElementById("subject").value;
     var verb =  document.getElementById("verb").value;
-    var translatedText = document.getElementById("translatedText");
     
-    translatedText.innerText = subject + " " + nopreterito(subject, verb);
+    setTranslatedText(subject + " " + nopreterito(subject, verb));
     
     conjuguingFunc = conjugueNoPreterito;
-    //isImperfeitoNoPreterito = false;
   }
   
   var conjugueNoPresenteDoConjunctivo = function() {
     console.log("conjugueNoPresenteDoConjunctivo...");
     var subject = document.getElementById("subject").value;
     var verb =  document.getElementById("verb").value;
-    var translatedText = document.getElementById("translatedText");
     
-    translatedText.innerText = subject + " " + nopresentedoconjunctivo(subject, verb);
+    setTranslatedText(subject + " " + nopresentedoconjunctivo(subject, verb));
     
     conjuguingFunc = conjugueNoPresenteDoConjunctivo;
-    //isImperfeitoNoPreterito = false;
   }
   
   var conjugueNoImperfeitoDoConjunctivo = function() {
     console.log("conjugueNoImperfeitoDoConjunctivo...");
     var subject = document.getElementById("subject").value;
     var verb =  document.getElementById("verb").value;
-    var translatedText = document.getElementById("translatedText");
     
-    translatedText.innerText = subject + " " + noimperfeitodoconjunctivo(subject, verb);
+    setTranslatedText(subject + " " + noimperfeitodoconjunctivo(subject, verb));
     
     conjuguingFunc = conjugueNoImperfeitoDoConjunctivo;
   }
