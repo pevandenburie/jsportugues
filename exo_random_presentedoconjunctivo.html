@@ -33,6 +33,15 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
+  <style> 
+    .wrong {
+        color: red;
+    }
+
+    .right {
+        color: green;
+    }
+  </style>
 </head>
 
 <body>
@@ -75,12 +84,12 @@
       if (useranswer === question.solution) {
         score.nbSuccess++;
         logEntry.setAttribute("class", "right");
-        logEntry.textContent = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
+        logEntry.textContent = "\"" + useranswer + "\"" + " Correto!  (" + question.solutionFullText + ")";
       }
       else {
         score.nbFailure++;
         logEntry.setAttribute("class", "wrong");
-        logEntry.textContent = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
+        logEntry.textContent = "\"" + useranswer + "\"" + " Falso!  (" + question.solutionFullText + ")";
       }
       logList.insertBefore(logEntry, logList.firstChild);
       
