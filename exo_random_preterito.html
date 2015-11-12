@@ -16,30 +16,53 @@
     // All functions, include conflict, will be available through _.str object
     _.str.include('Underscore.string', 'string'); // => true*/
   </script>
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
   <script type="text/javascript" src="underscore-min.js"> </script>
   <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="log.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="preterito.exo.js" charset="UTF-8"> </script>
   
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style>
+  <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
+  <style> 
+    .wrong {
+        color: red;
+    }
+
+    .right {
+        color: green;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>JsPortugues - Exo Preterito</h1>
-  <div>
-    <br>
-    <div id=score>...</div>
-    <br>
-    <label id=question>...</label>
-    <input type="text" id="useranswer"  autocapitalize="off" autofocus></input>
-    <button id="submit">submit!</button>
-    <br><br>
-    <div id=answerslog></div>
-    <br><br>
+  <div class="container">
+    <div class="page-header">
+      <h1>JsPortugues</h1>
+      <h4>Exo Preterito</h4>
+    </div>
   </div>
+  
+  <div class="container-fluid">
+    <div id=score>...</div>
+    <div class="row">
+      <div class="col-xs-5 col-sm-4 col-md-4"><label id=question>...</label></div>
+      <div class="col-xs-5 col-sm-4 col-md-4"><input type="text" id="useranswer"  size=15 autocapitalize="off" autofocus></input></div>
+      <div class="col-xs-2 col-sm-4 col-md-4"><button id="submit">ok</button></div>
+    </div>
+    <div id=answerslog></div>
+  </div>
+
   
   <script>
   
@@ -54,20 +77,7 @@
       }
 
       // Display the solution
-      var logList = document.getElementById("answerslog");
-
-      var logEntry = document.createElement("DIV");
-      if (useranswer === question.solution) {
-        score.nbSuccess++;
-        logEntry.setAttribute("class", "right");
-        logEntry.textContent = "\"" + useranswer + "\"" + " Right!  (" + question.solutionFullText + ")";
-      }
-      else {
-        score.nbFailure++;
-        logEntry.setAttribute("class", "wrong");
-        logEntry.textContent = "\"" + useranswer + "\"" + " Wrong!  (" + question.solutionFullText + ")";
-      }
-      logList.insertBefore(logEntry, logList.firstChild);
+      log_insert("answerslog", (useranswer === question.solution), useranswer, question.solutionFullText);
       
       // Let's go for the next question!
       refreshScore();
