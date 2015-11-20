@@ -15,24 +15,39 @@ var AnswerLogItem = Backbone.Model.extend({
 
 
 var AnswerLogView = Backbone.View.extend({
-	id: 'answerslog-view',
+	//id: 'answerslog-view',
 	className: 'log',
 
-	template: _.template("<div><%= userAnswer %> <% if (isSuccess) { print('Correto'); } else { print('Falso'); } > (<%= solutionFullText %>)</div>"),
+	template: _.template("<div><%= userAnswer %> <% if (isSuccess) { print('Correto'); } else { print('Falso'); } %> (<%= solutionFullText %>)</div>"),
 
 	render: function() {
-		/*if (this.model.get('isSuccess')) {
-			var html = '<div>' + this.model.get('useranswer') + ' Correto!  (' + this.model.get('solutionFullText') + ')' + '</div>';	
-		}
-		else  {
-			var html = '<div>' + this.model.get('useranswer') + ' Falso!  (' + this.model.get('solutionFullText') + ')' + '</div>';	
-		}
-		this.$el.html(html);*/
+		// var html;
+		// if (this.model.get('isSuccess')) {
+		// 	html = '<div>' + this.model.get('userAnswer') + ' Correto!  (' + this.model.get('solutionFullText') + ')' + '</div>';	
+		// }
+		// else  {
+		// 	html = '<div>' + this.model.get('userAnswer') + ' Falso!  (' + this.model.get('solutionFullText') + ')' + '</div>';	
+		// }
+		// $(this.el).html(html);
 
 		var attributes = this.model.toJSON();
-		this.$el.html(this.template(attributes));
+		$(this.el).html(this.template(attributes));
+
+		return this;
 	}
 });
+
+
+
+var AnswerLogListView = Backbone.View.extend({
+	el: $('answerslog')
+})
+
+var AnswerLogList = Backbone.Collection.extend({
+	model: AnswerLogItem
+})
+
+var logList = new AnswerLogList();
 
 
 
@@ -41,11 +56,11 @@ function log_insert( id, isSuccess, userAnswer,  solutionFullText)
 {
 	// Create a new log entry
 	var answerLogItem = new AnswerLogItem();
-	answerLogItem.set({
-		userAnswer: this.userAnswer, 
-		isSuccess: this.isSuccess,
-		solutionFullText: this.solutionFullText 
-	});
+	answerLogItem.set({userAnswer: userAnswer});
+	answerLogItem.set({isSuccess: isSuccess});
+	answerLogItem.set({solutionFullText: solutionFullText});
+
+	logList.add(answerLogItem);
 
 	//answerLogItem.save();
 	//answerLogItem.fetch();
@@ -56,6 +71,8 @@ function log_insert( id, isSuccess, userAnswer,  solutionFullText)
 	});
 
 	answerLogView.render();
+
+	console.log(answerLogView.render().el);
 
 
 
