@@ -40,39 +40,53 @@ var AnswerLogView = Backbone.View.extend({
 
 
 var AnswerLogListView = Backbone.View.extend({
-	el: $('answerslog')
-})
+	el: $('#answerslog'),
+
+	initialize: function() {
+		// 'on' does not work ???
+		this.collection.bind('add', this.addOne, this);
+	},
+
+	render: function() {
+		this.collection.forEach(this.addOne, this);
+	},
+
+	addOne: function(answerLogItem) {
+		var answerLogView = new AnswerLogView({
+			model: answerLogItem
+		});
+
+		//this.$el.append(answerLogView.render().el);
+		$('#answerslog').append(answerLogView.render().el);
+		console.log(answerLogView.render().el);
+	}
+});
 
 var AnswerLogList = Backbone.Collection.extend({
 	model: AnswerLogItem
-})
+});
+
 
 var logList = new AnswerLogList();
-
+var logListView = new AnswerLogListView({collection: logList});
 
 
 
 function log_insert( id, isSuccess, userAnswer,  solutionFullText)
 {
 	// Create a new log entry
-	var answerLogItem = new AnswerLogItem();
-	answerLogItem.set({userAnswer: userAnswer});
-	answerLogItem.set({isSuccess: isSuccess});
-	answerLogItem.set({solutionFullText: solutionFullText});
-
+	var answerLogItem = new AnswerLogItem({
+		userAnswer: userAnswer,
+		isSuccess: isSuccess,
+		solutionFullText: solutionFullText
+	});
+	
 	logList.add(answerLogItem);
 
 	//answerLogItem.save();
 	//answerLogItem.fetch();
 
 
-	var answerLogView = new AnswerLogView({
-		model: answerLogItem,
-	});
-
-	answerLogView.render();
-
-	console.log(answerLogView.render().el);
 
 
 
