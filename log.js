@@ -15,21 +15,14 @@ var AnswerLogItem = Backbone.Model.extend({
 
 
 var AnswerLogView = Backbone.View.extend({
-	//id: 'answerslog-view',
 	className: 'log',
 
-	template: _.template("<div><%= userAnswer %> <% if (isSuccess) { print('Correto'); } else { print('Falso'); } %> (<%= solutionFullText %>)</div>"),
+	template: _.template("<% if (isSuccess) { print('\<div class=\"right\"\>'); } else { print('\<div class=\"wrong\"\>'); } %>" +
+		"<%= userAnswer %> " +
+		"<% if (isSuccess) { print('Correto'); } else { print('Falso'); } %> " +
+		"(<%= solutionFullText %>)</div>"),
 
 	render: function() {
-		// var html;
-		// if (this.model.get('isSuccess')) {
-		// 	html = '<div>' + this.model.get('userAnswer') + ' Correto!  (' + this.model.get('solutionFullText') + ')' + '</div>';	
-		// }
-		// else  {
-		// 	html = '<div>' + this.model.get('userAnswer') + ' Falso!  (' + this.model.get('solutionFullText') + ')' + '</div>';	
-		// }
-		// $(this.el).html(html);
-
 		var attributes = this.model.toJSON();
 		$(this.el).html(this.template(attributes));
 
