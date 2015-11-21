@@ -49,9 +49,7 @@ var AnswerLogListView = Backbone.View.extend({
 			model: answerLogItem
 		});
 
-		//this.$el.append(answerLogView.render().el);
-		$('#answerslog').append(answerLogView.render().el);
-		console.log(answerLogView.render().el);
+		$('#answerslog').prepend(answerLogView.render().el);
 	}
 });
 
@@ -67,7 +65,8 @@ var logListView = new AnswerLogListView({collection: logList});
 
 function log_insert( id, isSuccess, userAnswer,  solutionFullText)
 {
-	// Create a new log entry
+	// Create a new log entry and append it to the list.
+	// The rendering will invert the order.
 	var answerLogItem = new AnswerLogItem({
 		userAnswer: userAnswer,
 		isSuccess: isSuccess,
