@@ -104,27 +104,27 @@
   <script>
     QUnit.module( "Tests Preterito" );
     QUnit.test( "Test nopreterito for group 1", function( assert ) {
-      var verb = "cantar";
+      var verb = new Verb("cantar");
       var conjugued = "cantei";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
 
     QUnit.test( "Test nopreterito for group 2", function( assert ) {
-      var verb = "comer";
+      var verb = new Verb("comer");
       var conjugued = "comi";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
 
     QUnit.test( "Test nopreterito for group 3", function( assert ) {
-      var verb = "abrir";
+      var verb = new Verb("abrir");
       var conjugued = "abri";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
 
     QUnit.test( "Test nopreterito for irregulares", function( assert ) {
-      var verb = "sair";
+      var verb = new Verb("sair");
       var conjugued = "saí";
-      assert.deepEqual( nopreterito("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
     });
   </script>
 

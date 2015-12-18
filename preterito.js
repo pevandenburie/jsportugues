@@ -2,15 +2,19 @@
 // Portugues Preterito conjuging function
 //
 
-
-// Entry point for preterito conjuging
-function nopreterito(subject, verb) {
-    if (_(preteritoIrregulares).has(verb)) {
-        return (preteritoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
+Verb.prototype.nopreterito = function(subject) {
+    if (_(preteritoIrregulares).has(this.infinitive)) {
+        return (preteritoIrregulares[this.infinitive])[ subjectTerminaisonIndexes[subject] ];
     }
     else {
-        return radical(verb) + getpreteritoterminaison(subject, verb);
+        return this.radical() + getpreteritoterminaison(subject, this);
     }
+}
+
+// Entry point for preterito conjuging
+function nopreterito(subject, infinitive) {
+  var verb = new Verb(infinitive);
+  return verb.nopreterito(subject);
 }
 
 
@@ -41,16 +45,13 @@ var preteritoIrregulares =  {
     };
 
 function getpreteritoterminaison(subject, verb) {
-    if (1 == getgroup(verb)) {
+    if (1 == verb.group()) {
         return preteritoTerminaisonsGroup1[subjectTerminaisonIndexes[subject]];
     }
-    else if (2 == getgroup(verb)) {
+    else if (2 == verb.group()) {
         return preteritoTerminaisonsGroup2[subjectTerminaisonIndexes[subject]];
     }
-    else if (3 == getgroup(verb)) {
+    else if (3 == verb.group()) {
         return preteritoTerminaisonsGroup3[subjectTerminaisonIndexes[subject]];
     }
 }
-
-
-
