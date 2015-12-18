@@ -1,6 +1,37 @@
 //
-//  Generic verb functions 
+//  Generic verb functions
 //
+
+// Verb constructor
+var Verb = function(infinitive) {
+  this.infinitive = infinitive;
+};
+
+Verb.prototype.toString = function() {
+	return this.infinitive;
+};
+
+// Return the radical of the verb
+Verb.prototype.radical = function() {
+  return this.infinitive.slice(0, -2);
+};
+
+// return the group number of the verb
+Verb.prototype.group = function() {
+	if (this.infinitive.slice(this.infinitive.length-2) === "ar") {
+			return 1;
+	}
+	else if (this.infinitive.slice(this.infinitive.length-2) === "er") {
+			return 2;
+	}
+	else if (this.infinitive.slice(this.infinitive.length-2) === "ir") {
+			return 3;
+	}
+	else {
+			console.log("No group for verb \""+ this.infinitive +"\" !");
+			return undefined;
+	}
+};
 
 
 var subjectTerminaisonIndexes = {
@@ -43,5 +74,3 @@ function getgroup(verb) {
 function radical(verb) {
 	return verb.slice(0, -2);
 }
-
-
