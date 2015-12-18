@@ -2,14 +2,18 @@
 // Portugues Imperfeito do Conjunctivo conjuging function
 //
 
-
-function noimperfeitodoconjunctivo(subject, verb) {
-    if (_(imperfeitodoconjunctivoIrregulares).has(verb)) {
-        return (imperfeitodoconjunctivoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
+Verb.prototype.noimperfeitodoconjunctivo = function(subject) {
+    if (_(imperfeitodoconjunctivoIrregulares).has(this.infinitive)) {
+        return (imperfeitodoconjunctivoIrregulares[this.infinitive])[ subjectTerminaisonIndexes[subject] ];
     }
     else {
-        return radical(verb) + getimperfeitodoconjunctivoterminaison(subject, verb);
+        return this.radical() + getimperfeitodoconjunctivoterminaison(subject, this);
     }
+}
+
+function noimperfeitodoconjunctivo(subject, infinitive) {
+  var verb = new Verb(infinitive);
+  return verb.noimperfeitodoconjunctivo(subject);
 }
 
 
@@ -43,13 +47,13 @@ var imperfeitodoconjunctivoTerminaisonsGroup3 = ["isse", "isses", "isse", "ísse
 
 
 function getimperfeitodoconjunctivoterminaison(subject, verb) {
-    if (1 == getgroup(verb)) {
+    if (1 == verb.group()) {
         return imperfeitodoconjunctivoTerminaisonsGroup1[subjectTerminaisonIndexes[subject]];
     }
-    else if (2 == getgroup(verb)) {
+    else if (2 == verb.group()) {
         return imperfeitodoconjunctivoTerminaisonsGroup2[subjectTerminaisonIndexes[subject]];
     }
-    else if (3 == getgroup(verb)) {
+    else if (3 == verb.group()) {
         return imperfeitodoconjunctivoTerminaisonsGroup3[subjectTerminaisonIndexes[subject]];
     }
 }

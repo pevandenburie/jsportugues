@@ -166,28 +166,28 @@
   <script>
     QUnit.module( "Tests Imperfeito do Conjunctivo" );
     QUnit.test( "Test noimperfeitodoconjunctivo for group 1", function(assert) {
-      var verb = "cantar";
+      var verb = new Verb("cantar");
       var conjugued = "cantasse";
-      assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
     });
 
     QUnit.test( "Test noimperfeitodoconjunctivo for group 2", function(assert) {
-      var verb = "comer";
+      var verb = new Verb("comer");
       var conjugued = "comesse";
-      assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
     });
 
     QUnit.test( "Test noimperfeitodoconjunctivo for group 3", function(assert) {
-      var verb = "abrir";
+      var verb = new Verb("abrir");
       var conjugued = "abrisse";
-      assert.deepEqual( noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
     });
 
 
     QUnit.test("Test noimperfeitodoconjunctivo for irregular verb", function(assert) {
-      var verb = "dar";
+      var verb = new Verb("dar");
       var conjugued = "desse";
-      assert.deepEqual(noimperfeitodoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued);
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued);
     });
   </script>
   <!-- <script src="tests.js"></script> -->
