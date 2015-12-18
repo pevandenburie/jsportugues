@@ -2,17 +2,21 @@
 // Portugues Present do Conjunctivo conjuging function
 //
 
-
-function nopresentedoconjunctivo(subject, verb) {
-    if (_(presentedoconjunctivoAlteredRadical).has(verb)) {
-        return presentedoconjunctivoAlteredRadical[verb] + getpresentedoconjunctivoterminaison(subject, verb);
+Verb.prototype.nopresentedoconjunctivo = function(subject) {
+    if (_(presentedoconjunctivoAlteredRadical).has(this.infinitive)) {
+        return presentedoconjunctivoAlteredRadical[this.infinitive] + getpresentedoconjunctivoterminaison(subject, this);
     }
-    else if (_(presentedoconjunctivoIrregulares).has(verb)) {
-        return (presentedoconjunctivoIrregulares[verb])[ subjectTerminaisonIndexes[subject] ];
+    else if (_(presentedoconjunctivoIrregulares).has(this.infinitive)) {
+        return (presentedoconjunctivoIrregulares[this.infinitive])[ subjectTerminaisonIndexes[subject] ];
     }
     else {
-        return radical(verb) + getpresentedoconjunctivoterminaison(subject, verb);
+        return this.radical() + getpresentedoconjunctivoterminaison(subject, this);
     }
+}
+
+function nopresentedoconjunctivo(subject, infinitive) {
+  var verb = new Verb(infinitive);
+  return verb.nopresentedoconjunctivo(subject);
 }
 
 
@@ -50,11 +54,11 @@ var presentedoconjunctivoIrregulares =
         "trazer" : ["traga", "tragas", "traga", "tragamos", "tragam"],
         "querer" : ["queira", "queiras", "queira", "queiramos", "queiram"],
         "haver" : ["", "", "haja", "", ""],
-        /* My irregulares found: */ 
-        "cair" : ["caia", "caias", "caia", "caiamos", "caiam"] 
+        /* My irregulares found: */
+        "cair" : ["caia", "caias", "caia", "caiamos", "caiam"]
     }
 
-        
+
 var presentedoconjunctivoTerminaisonsGroup1 = ["e", "es", "e", "emos", "em"];
 
 var presentedoconjunctivoTerminaisonsGroup2 = ["a", "as", "a", "amos", "am"];
@@ -63,13 +67,13 @@ var presentedoconjunctivoTerminaisonsGroup3 = presentedoconjunctivoTerminaisonsG
 
 
 function getpresentedoconjunctivoterminaison(subject, verb) {
-    if (1 == getgroup(verb)) {
+    if (1 == verb.group()) {
         return presentedoconjunctivoTerminaisonsGroup1[subjectTerminaisonIndexes[subject]];
     }
-    else if (2 == getgroup(verb)) {
+    else if (2 == verb.group()) {
         return presentedoconjunctivoTerminaisonsGroup2[subjectTerminaisonIndexes[subject]];
     }
-    else if (3 == getgroup(verb)) {
+    else if (3 == verb.group()) {
         return presentedoconjunctivoTerminaisonsGroup3[subjectTerminaisonIndexes[subject]];
     }
 }

@@ -132,33 +132,33 @@
   <script>
     QUnit.module( "Tests Presente do Conjunctivo" );
     QUnit.test( "Test nopresentedoconjunctivo for group 1", function( assert ) {
-      var verb = "cantar";
+      var verb = new Verb("cantar");
       var conjugued = "cante";
-      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
     });
 
     QUnit.test( "Test nopresentedoconjunctivo for group 2", function( assert ) {
-      var verb = "comer";
+      var verb = new Verb("comer");
       var conjugued = "coma";
-      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
     });
 
     QUnit.test( "Test nopresentedoconjunctivo for group 3", function( assert ) {
-      var verb = "abrir";
+      var verb = new Verb("abrir");
       var conjugued = "abra";
-      assert.deepEqual( nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
     });
 
     QUnit.test("Test nopresentedoconjunctivo for altered verb", function(assert) {
-      var verb = "conferir";
+      var verb = new Verb("conferir");
       var conjugued = "confira";
-      assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
     });
 
     QUnit.test("Test nopresentedoconjunctivo for irregular verb", function(assert) {
-      var verb = "dar";
+      var verb = new Verb("dar");
       var conjugued = "dê";
-      assert.deepEqual(nopresentedoconjunctivo("eu", verb), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
     });
   </script>
 
