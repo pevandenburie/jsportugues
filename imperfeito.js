@@ -2,15 +2,19 @@
 // Portugues Imperfeito conjuging function
 //
 
-
-// Entry point for imperfeito conjuging
-function noimperfeito(subject, verb) {
-	if (_(imperfeitoirregulares).has(verb)) {
-		return (imperfeitoirregulares[verb])[subjectTerminaisonIndexes[subject]];
+Verb.prototype.noimperfeito = function(subject) {
+	if (_(imperfeitoirregulares).has(this.infinitive)) {
+		return (imperfeitoirregulares[this.infinitive])[subjectTerminaisonIndexes[subject]];
 	}
 	else {
-		return radical(verb) + imperfeitoterminaison(subject, verb);
+		return this.radical() + imperfeitoterminaison(subject, this);
 	}
+};
+
+// Entry point for imperfeito conjuging
+function noimperfeito(subject, infinitive) {
+	var verb = new Verb(infinitive);
+	return verb.noimperfeito(subject);
 }
 
 
@@ -24,7 +28,7 @@ var imperfeitoterminaisonsgroup1 = {
 			"voces" : "avam",
 			"eles" : "avam",
 			"elas" : "avam"
-	}
+	};
 
 var imperfeitoterminaisonsgroup2 = {
 			"eu" : "ia",
@@ -36,27 +40,27 @@ var imperfeitoterminaisonsgroup2 = {
 			"voces" : "iam",
 			"eles" : "iam",
 			"elas" : "iam"
-	}
+	};
 
 var imperfeitoterminaisonsgroup3 = imperfeitoterminaisonsgroup2;
 
 function imperfeitoterminaison(subject, verb) {
 	if (_(imperfeitoterminaisonsgroup1).has(subject)) {
-			if (1 == getgroup(verb)) {
+			if (1 == verb.group()) {
 					return imperfeitoterminaisonsgroup1[subject];
 			}
-			else if (2 == getgroup(verb)) {
+			else if (2 == verb.group()) {
 					return imperfeitoterminaisonsgroup2[subject];
 			}
-			else if (3 == getgroup(verb)) {
+			else if (3 == verb.group()) {
 					return imperfeitoterminaisonsgroup3[subject];
 			}
 	}
 }
 
-imperfeitoirregulares = {
+var imperfeitoirregulares = {
 			"ser" : ["era", "eras", "era", "éramos", "eram"],
 			"ter" : ["tinha", "tinhas", "tinha", "tinhamos", "tinham"],
 			"vir" : ["vinha", "vinhas", "vinha", "vinhamos", "vinham"],
 			"por" : ["punha", "punhas", "punha", "punhamos", "punham"]
-	}
+};

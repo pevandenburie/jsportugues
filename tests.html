@@ -45,32 +45,32 @@
       assert.deepEqual( verb.group(), group, "We expect verb " + verb + " to be of group" + group );
     });
 
-    QUnit.module( "Tests verb.radical" );
-    QUnit.test( "Test radical for group 1", function( assert ) {
+    QUnit.module( "Tests verb.radical()" );
+    QUnit.test( "Test radical() for group 1", function( assert ) {
       var verb = new Verb("cantar");
       var r = "cant";
       assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
     });
 
-    QUnit.test( "Test radical for group 2", function( assert ) {
+    QUnit.test( "Test verb.radical() for group 2", function( assert ) {
       var verb = new Verb("comer");
       var r = "com";
       assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
     });
 
-    QUnit.test( "Test radical for group 3", function( assert ) {
+    QUnit.test( "Test verb.radical() for group 3", function( assert ) {
       var verb = new Verb("sair");
       var r = "sa";
       assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
     });
 
-    QUnit.test( "Test radical for not valid verb (no specific handling here)", function( assert ) {
+    QUnit.test( "Test verb.radical() for not valid verb (no specific handling here)", function( assert ) {
       var verb = new Verb("unknownverb");
       var r = "unknownve";
       assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
     });
 
-    QUnit.test( "Test radical for empty string (no specific handling here)", function( assert ) {
+    QUnit.test( "Test verb.radical() for empty string (no specific handling here)", function( assert ) {
       var verb = new Verb("");
       var r = "";
       assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
@@ -81,22 +81,22 @@
   <script src="imperfeito.js"> </script>
   <script>
     QUnit.module( "Tests Imperfeito" );
-    QUnit.test( "Test noimperfeito for group 1", function( assert ) {
-      var verb = "cantar";
+    QUnit.test( "Test verb.noimperfeito() for group 1", function( assert ) {
+      var verb = new Verb("cantar");
       var conjugued = "cantava";
-      assert.deepEqual( noimperfeito("eu", verb), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
+      assert.deepEqual( verb.noimperfeito("eu"), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
     });
 
-    QUnit.test( "Test noimperfeito for group 2", function( assert ) {
-      var verb = "comer";
+    QUnit.test( "Test verb.noimperfeito() for group 2", function( assert ) {
+      var verb = new Verb("comer");
       var conjugued = "comia";
-      assert.deepEqual( noimperfeito("eu", verb), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
+      assert.deepEqual( verb.noimperfeito("eu"), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
     });
 
-    QUnit.test( "Test noimperfeito for group 3", function( assert ) {
-      var verb = "sair";
+    QUnit.test( "Test verb.noimperfeito() for group 3", function( assert ) {
+      var verb = new Verb("sair");
       var conjugued = "saia";
-      assert.deepEqual( noimperfeito("eu", verb), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
+      assert.deepEqual( verb.noimperfeito("eu"), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
     });
   </script>
 
