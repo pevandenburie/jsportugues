@@ -31,17 +31,19 @@ function generateRandomVerb() {
   return verbs[idx];
 }
 
+
+var PresentedoconjunctivoQuestion = function() {
+  // Select a subject and a verb, and compute the solution
+  this.subject = generateRandomSubject();
+  this.verb = generateRandomVerb();
+  this.text = this.subject + " (" + this.verb + ")";
+  this.solution = JsPortugues.nopresentedoconjunctivo(this.subject, this.verb);
+  this.solutionFullText = this.subject + " " + this.solution;
+};
+
 // Init of the question
 JsPortugues.exercises.presentedoconjunctivo = {
   createQuestion: function() {
-
-    // Select a subject and a verb, and compute the solution
-    var subject = generateRandomSubject();
-    var verb = generateRandomVerb();
-    var solution = JsPortugues.nopresentedoconjunctivo(subject, verb);
-    var solutionFullText = subject + " " + solution;
-
-    var questionText = subject + " (" + verb + ")";
-    return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution, 'solutionFullText': solutionFullText };
+    return new PresentedoconjunctivoQuestion();
   }
 };
