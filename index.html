@@ -1,0 +1,142 @@
+<!DOCTYPE=html>
+
+<html>
+
+<head>
+  <title>JsPortugues</title>
+  <link rel="shortcut icon" type="image/png" href="flag_icon_pt.gif" />
+
+  <script>
+    /*var _  = require('underscore');
+
+    // Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
+    _.str = require('underscore.string');
+
+    // Mix in non-conflict functions to Underscore namespace if you want
+    _.mixin(_.str.exports());
+
+    // All functions, include conflict, will be available through _.str object
+    _.str.include('Underscore.string', 'string'); // => true*/
+  </script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="underscore-min.js"> </script>
+  <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
+  <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="imperfeito.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="imperfeitodoconjunctivo.js" charset="UTF-8"> </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>JsPortugues</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3"><select class="col-md-4" id="subject" name="subject"></select></div>
+      <div class="col-xs-9"><input class="col-md-8" type="text" id="verb"  autocapitalize="off" autofocus></input></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-md-3"><button id="noimperfeito" class="btn btn-default btn-block">No imperfeito</button></div>
+      <div class="col-xs-6 col-md-3"><button id="nopreterito" class="btn btn-default btn-block">No preterito</button></div>
+      <div class="col-xs-6 col-md-3"><button id="nopresenteconjunctivo" class="btn btn-default btn-block">No presente<br>do conjuctivo</button></div>
+      <div class="col-xs-6 col-md-3"><button id="noimperfeitoconjunctivo" class="btn btn-default btn-block">No imperfeito<br>do conjuctivo</button></div>
+    </div>
+    <div id="translatedText">...</div>
+  </div>
+  <br><br>
+  <h2>Exercicios:</h2>
+    <a href="exo_random_preterito.html" class="btn btn-default btn-block">Preterito do Indicativo</a>
+    <a href="exo_random_presentedoconjunctivo.html" class="btn btn-default btn-block">Presente do Conjunctivo</a>
+    <a href="exo_random_imperfeitodoconjunctivo.html" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
+  <script>
+  var isImperfeitoNoPreterito = true;
+  var conjuguingFunc = conjugueNoImperfeito;
+
+  function setTranslatedText( text ) {
+    var translatedText = document.getElementById("translatedText");
+    translatedText.textContent = text;    // innerText NOT supported by firefox
+  }
+
+  var conjugueNoImperfeito = function() {
+    console.log("conjugueNoImperfeito...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+
+    setTranslatedText(subject + " " + JsPortugues.noimperfeito(subject, verb));
+    //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
+
+    conjuguingFunc = conjugueNoImperfeito;
+  }
+
+  var conjugueNoPreterito = function() {
+    console.log("conjugueNoPreterito...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+
+    setTranslatedText(subject + " " + JsPortugues.nopreterito(subject, verb));
+
+    conjuguingFunc = conjugueNoPreterito;
+  }
+
+  var conjugueNoPresenteDoConjunctivo = function() {
+    console.log("conjugueNoPresenteDoConjunctivo...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+
+    setTranslatedText(subject + " " + JsPortugues.nopresentedoconjunctivo(subject, verb));
+
+    conjuguingFunc = conjugueNoPresenteDoConjunctivo;
+  }
+
+  var conjugueNoImperfeitoDoConjunctivo = function() {
+    console.log("conjugueNoImperfeitoDoConjunctivo...");
+    var subject = document.getElementById("subject").value;
+    var verb =  document.getElementById("verb").value;
+
+    setTranslatedText(subject + " " + JsPortugues.noimperfeitodoconjunctivo(subject, verb));
+
+    conjuguingFunc = conjugueNoImperfeitoDoConjunctivo;
+  }
+
+  function updateLastConjuging() {
+    conjuguingFunc();
+  }
+
+  document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
+  document.getElementById('nopreterito').onclick = conjugueNoPreterito;
+  document.getElementById('nopresenteconjunctivo').onclick = conjugueNoPresenteDoConjunctivo;
+  document.getElementById('noimperfeitoconjunctivo').onclick = conjugueNoImperfeitoDoConjunctivo;
+
+  // Fill the list of subjects
+  var subjectList = document.getElementById('subject');
+  var subjects = JsPortugues.subjects;
+  var i = 0;
+  var option;
+  for (i=0, l=subjects.length; i<l; i+=1) {
+    option = document.createElement("option");
+    option.text = subjects[i];
+    option.value = subjects[i];
+    subjectList.add(option);
+  }
+  subjectList.onchange = updateLastConjuging;
+
+  </script>
+
+</body>
+
+</html>

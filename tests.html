@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit basic example</title>
+  <link rel="stylesheet" href="code.jquery.com/qunit/qunit-1.15.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="code.jquery.com/qunit/qunit-1.15.0.js"></script>
+  <script type="text/javascript" src="underscore-min.js"> </script>
+
+  <script src="verb.js"> </script>
+  <script>
+    QUnit.module( "Tests verb.group()" );
+    QUnit.test( "Test verb.group() for group 1", function( assert ) {
+      var verb = new Verb("cantar");
+      var group = 1;
+      assert.deepEqual( verb.group(), group, "We expect verb " + verb + " to be of group" + group );
+    });
+
+    QUnit.test( "Test verb.group() for group 2", function( assert ) {
+      var verb = new Verb("comer");
+      var group = 2;
+      assert.deepEqual( verb.group(), group, "We expect verb " + verb + " to be of group" + group );
+    });
+
+    QUnit.test( "Test verb.group() for group 3", function( assert ) {
+      var verb = new Verb("sair");
+      var group = 3;
+      assert.deepEqual( verb.group(), group, "We expect verb " + verb + " to be of group" + group );
+    });
+
+    QUnit.test( "Test verb.group() for not valid verb", function( assert ) {
+      var verb = new Verb("unknownverb");
+      var group = undefined;
+      assert.deepEqual( verb.group(), group, "We expect verb " + verb + " to be of group" + group );
+    });
+
+    QUnit.test( "Test verb.group() for empty string", function( assert ) {
+      var verb = new Verb("");
+      var group = undefined;
+      assert.deepEqual( verb.group(), group, "We expect verb " + verb + " to be of group" + group );
+    });
+
+    QUnit.module( "Tests verb.radical()" );
+    QUnit.test( "Test radical() for group 1", function( assert ) {
+      var verb = new Verb("cantar");
+      var r = "cant";
+      assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
+    });
+
+    QUnit.test( "Test verb.radical() for group 2", function( assert ) {
+      var verb = new Verb("comer");
+      var r = "com";
+      assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
+    });
+
+    QUnit.test( "Test verb.radical() for group 3", function( assert ) {
+      var verb = new Verb("sair");
+      var r = "sa";
+      assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
+    });
+
+    QUnit.test( "Test verb.radical() for not valid verb (no specific handling here)", function( assert ) {
+      var verb = new Verb("unknownverb");
+      var r = "unknownve";
+      assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
+    });
+
+    QUnit.test( "Test verb.radical() for empty string (no specific handling here)", function( assert ) {
+      var verb = new Verb("");
+      var r = "";
+      assert.deepEqual( verb.radical(), r, "We expect verb " + verb + " to have radical" + r );
+    });
+  </script>
+  <!-- <script src="tests.js"></script> -->
+
+  <script src="imperfeito.js"> </script>
+  <script>
+    QUnit.module( "Tests Imperfeito" );
+    QUnit.test( "Test verb.noimperfeito() for group 1", function( assert ) {
+      var verb = new Verb("cantar");
+      var conjugued = "cantava";
+      assert.deepEqual( verb.noimperfeito("eu"), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
+    });
+
+    QUnit.test( "Test verb.noimperfeito() for group 2", function( assert ) {
+      var verb = new Verb("comer");
+      var conjugued = "comia";
+      assert.deepEqual( verb.noimperfeito("eu"), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
+    });
+
+    QUnit.test( "Test verb.noimperfeito() for group 3", function( assert ) {
+      var verb = new Verb("sair");
+      var conjugued = "saia";
+      assert.deepEqual( verb.noimperfeito("eu"), conjugued, "We expect verb " + "eu "  + verb + " to be in Imperfeito " + conjugued );
+    });
+  </script>
+
+  <script src="preterito.js"> </script>
+  <script>
+    QUnit.module( "Tests Preterito" );
+    QUnit.test( "Test nopreterito for group 1", function( assert ) {
+      var verb = new Verb("cantar");
+      var conjugued = "cantei";
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+    });
+
+    QUnit.test( "Test nopreterito for group 2", function( assert ) {
+      var verb = new Verb("comer");
+      var conjugued = "comi";
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+    });
+
+    QUnit.test( "Test nopreterito for group 3", function( assert ) {
+      var verb = new Verb("abrir");
+      var conjugued = "abri";
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+    });
+
+    QUnit.test( "Test nopreterito for irregulares", function( assert ) {
+      var verb = new Verb("sair");
+      var conjugued = "saí";
+      assert.deepEqual( verb.nopreterito("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Preterito " + conjugued );
+    });
+  </script>
+
+  <script src="presentedoconjunctivo.js"></script>
+  <script>
+    QUnit.module( "Tests Presente do Conjunctivo" );
+    QUnit.test( "Test nopresentedoconjunctivo for group 1", function( assert ) {
+      var verb = new Verb("cantar");
+      var conjugued = "cante";
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
+    });
+
+    QUnit.test( "Test nopresentedoconjunctivo for group 2", function( assert ) {
+      var verb = new Verb("comer");
+      var conjugued = "coma";
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
+    });
+
+    QUnit.test( "Test nopresentedoconjunctivo for group 3", function( assert ) {
+      var verb = new Verb("abrir");
+      var conjugued = "abra";
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued );
+    });
+
+    QUnit.test("Test nopresentedoconjunctivo for altered verb", function(assert) {
+      var verb = new Verb("conferir");
+      var conjugued = "confira";
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
+    });
+
+    QUnit.test("Test nopresentedoconjunctivo for irregular verb", function(assert) {
+      var verb = new Verb("dar");
+      var conjugued = "dê";
+      assert.deepEqual( verb.nopresentedoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Presente do Conjunctivo " + conjugued);
+    });
+  </script>
+
+  <script src="imperfeitodoconjunctivo.js"></script>
+  <script>
+    QUnit.module( "Tests Imperfeito do Conjunctivo" );
+    QUnit.test( "Test noimperfeitodoconjunctivo for group 1", function(assert) {
+      var verb = new Verb("cantar");
+      var conjugued = "cantasse";
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+    });
+
+    QUnit.test( "Test noimperfeitodoconjunctivo for group 2", function(assert) {
+      var verb = new Verb("comer");
+      var conjugued = "comesse";
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+    });
+
+    QUnit.test( "Test noimperfeitodoconjunctivo for group 3", function(assert) {
+      var verb = new Verb("abrir");
+      var conjugued = "abrisse";
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued );
+    });
+
+
+    QUnit.test("Test noimperfeitodoconjunctivo for irregular verb", function(assert) {
+      var verb = new Verb("dar");
+      var conjugued = "desse";
+      assert.deepEqual( verb.noimperfeitodoconjunctivo("eu"), conjugued, "We expect verb " + "eu " + verb + " to be in Imperfeito do Conjunctivo " + conjugued);
+    });
+  </script>
+  <!-- <script src="tests.js"></script> -->
+</body>
+</html>
