@@ -81,7 +81,7 @@
     var score = { nbSuccess: 0, nbFailure: 0 };
 
     function refreshQuestion() {
-      question = JsPortugues.createQuestion();
+      question = JsPortugues.exercises.presentedoconjunctivo.createQuestion();
       document.getElementById('question').textContent = question.text;
       document.getElementById('useranswer').value = "";
     }

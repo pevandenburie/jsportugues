@@ -47,8 +47,7 @@ var subjectTerminaisonIndexes = {
 }
 
 
-//var _subjects = _(subjectTerminaisonIndexes).keys();
-
 var JsPortugues = {
-  subjects: _(subjectTerminaisonIndexes).keys()
+  subjects: _(subjectTerminaisonIndexes).keys(),
+	exercises: {}
 }

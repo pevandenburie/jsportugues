@@ -32,13 +32,16 @@ function generateRandomVerb() {
 }
 
 // Init of the question
-JsPortugues.createQuestion = function() {
-  // Select a subject and a verb, and compute the solution
-  var subject = generateRandomSubject();
-  var verb = generateRandomVerb();
-  var solution = JsPortugues.nopreterito(subject, verb);
-  var solutionFullText = subject + " " + solution;
+JsPortugues.exercises.preterito = {
+  createQuestion: function() {
 
-  var questionText = subject + " (" + verb + ")";
-  return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution, 'solutionFullText': solutionFullText };
+    // Select a subject and a verb, and compute the solution
+    var subject = generateRandomSubject();
+    var verb = generateRandomVerb();
+    var solution = JsPortugues.nopreterito(subject, verb);
+    var solutionFullText = subject + " " + solution;
+
+    var questionText = subject + " (" + verb + ")";
+    return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution, 'solutionFullText': solutionFullText };
+  }
 };
