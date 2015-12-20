@@ -51,3 +51,30 @@ var JsPortugues = {
   subjects: _(subjectTerminaisonIndexes).keys(),
 	exercises: {}
 }
+
+
+// Put the Question here to avoid create a new file now
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateRandomSubject() {
+  var subjects = _(subjectTerminaisonIndexes).keys();
+  var idx = getRandomInt(0, _.size(subjects)-1 );
+  return subjects[idx];
+}
+
+function pickRandomVerb(verbs) {
+  var idx = getRandomInt(0, _.size(verbs)-1 );
+  return verbs[idx];
+}
+
+var RandomQuestion = function(verbs, conjuguateFunc) {
+  // Select a subject and a verb, and compute the solution
+  this.subject = generateRandomSubject();
+  this.verb = pickRandomVerb(verbs);
+  this.text = this.subject + " (" + this.verb + ")";
+  this.solution = conjuguateFunc(this.subject, this.verb);
+  this.solutionFullText = this.subject + " " + this.solution;
+};
