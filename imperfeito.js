@@ -12,7 +12,7 @@ Verb.prototype.noimperfeito = function(subject) {
 };
 
 // Entry point for imperfeito conjuging
-function noimperfeito(subject, infinitive) {
+JsPortugues.noimperfeito = function(subject, infinitive) {
 	var verb = new Verb(infinitive);
 	return verb.noimperfeito(subject);
 }

@@ -11,7 +11,7 @@ Verb.prototype.noimperfeitodoconjunctivo = function(subject) {
     }
 }
 
-function noimperfeitodoconjunctivo(subject, infinitive) {
+JsPortugues.noimperfeitodoconjunctivo = function(subject, infinitive) {
   var verb = new Verb(infinitive);
   return verb.noimperfeitodoconjunctivo(subject);
 }

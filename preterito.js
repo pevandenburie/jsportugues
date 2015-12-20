@@ -12,7 +12,7 @@ Verb.prototype.nopreterito = function(subject) {
 }
 
 // Entry point for preterito conjuging
-function nopreterito(subject, infinitive) {
+JsPortugues.nopreterito = function(subject, infinitive) {
   var verb = new Verb(infinitive);
   return verb.nopreterito(subject);
 }

@@ -3,31 +3,31 @@
 <head>
   <title>JsPortugues - Exo Presente do Conjunctivo</title>
   <link rel="shortcut icon" type="image/png" href="flag_icon_pt.gif" />
-  
-  
+
+
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  
+
 
   <script src="underscore-min.js"></script>
   <!--script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script-->
-  
+
   <script src="backbone-min.js"></script>
   <!--script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"></script-->
-  
-  
+
+
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="log.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="presentedoconjunctivo.exo.js" charset="UTF-8"> </script>
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
-  <style> 
+  <style>
     .wrong {
         color: red;
     }
@@ -45,7 +45,7 @@
       <h4>Exo Presente do Conjunctivo</h4>
     </div>
   </div>
-  
+
   <div class="container-fluid">
     <div id=score>...</div>
     <div class="row">
@@ -55,14 +55,14 @@
     </div>
     <div id=answerslog></div>
   </div>
-      
+
   <script>
-  
+
     // The answer submitting function
     function submitAnswer()
     {
       var useranswer = document.getElementById('useranswer').value;
-      
+
       // Check that's not a compulsive press on ENTER
       if (useranswer === "") {
         return;
@@ -70,7 +70,7 @@
 
       // Display the solution
       log_insert("answerslog", (useranswer === question.solution), useranswer, question.solutionFullText);
-      
+
       // Let's go for the next question!
       refreshScore();
       refreshQuestion();
@@ -81,7 +81,7 @@
     var score = { nbSuccess: 0, nbFailure: 0 };
 
     function refreshQuestion() {
-      question = createQuestion();
+      question = JsPortugues.createQuestion();
       document.getElementById('question').textContent = question.text;
       document.getElementById('useranswer').value = "";
     }
@@ -97,7 +97,7 @@
     refreshScore();
     refreshQuestion();
 
-    
+
   </script>
 
 </body>

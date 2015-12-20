@@ -14,7 +14,7 @@ Verb.prototype.nopresentedoconjunctivo = function(subject) {
     }
 }
 
-function nopresentedoconjunctivo(subject, infinitive) {
+JsPortugues.nopresentedoconjunctivo = function(subject, infinitive) {
   var verb = new Verb(infinitive);
   return verb.nopresentedoconjunctivo(subject);
 }

@@ -32,13 +32,13 @@ function generateRandomVerb() {
 }
 
 // Init of the question
-function createQuestion() {
+JsPortugues.createQuestion = function() {
   // Select a subject and a verb, and compute the solution
   var subject = generateRandomSubject();
   var verb = generateRandomVerb();
-  var solution = nopresentedoconjunctivo(subject, verb);
+  var solution = JsPortugues.nopresentedoconjunctivo(subject, verb);
   var solutionFullText = subject + " " + solution;
 
   var questionText = subject + " (" + verb + ")";
   return { 'subject': subject, 'verb': verb, 'text': questionText, 'solution': solution, 'solutionFullText': solutionFullText };
-}
+};
