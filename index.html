@@ -6,19 +6,6 @@
   <title>JsPortugues</title>
   <link rel="shortcut icon" type="image/png" href="flag_icon_pt.gif" />
 
-  <script>
-    /*var _  = require('underscore');
-
-    // Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
-    _.str = require('underscore.string');
-
-    // Mix in non-conflict functions to Underscore namespace if you want
-    _.mixin(_.str.exports());
-
-    // All functions, include conflict, will be available through _.str object
-    _.str.include('Underscore.string', 'string'); // => true*/
-  </script>
-
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <!-- jQuery library -->
@@ -26,8 +13,14 @@
   <!-- Latest compiled JavaScript -->
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="underscore-min.js"> </script>
-  <!-- <script type="text/javascript" src="underscore.string.min.js"> </script> -->
+
+  <script src="underscore-min.js"></script>
+  <!--script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script-->
+
+  <!--script src="backbone-min.js"></script-->
+  <script src="backbone.js"></script>
+  <!--script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"></script-->
+
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="imperfeito.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
@@ -45,96 +38,173 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-3"><select class="col-md-4" id="subject" name="subject"></select></div>
-      <div class="col-xs-9"><input class="col-md-8" type="text" id="verb"  autocapitalize="off" autofocus></input></div>
-    </div>
-    <div class="row">
-      <div class="col-xs-6 col-md-3"><button id="noimperfeito" class="btn btn-default btn-block">No imperfeito</button></div>
-      <div class="col-xs-6 col-md-3"><button id="nopreterito" class="btn btn-default btn-block">No preterito</button></div>
-      <div class="col-xs-6 col-md-3"><button id="nopresenteconjunctivo" class="btn btn-default btn-block">No presente<br>do conjuctivo</button></div>
-      <div class="col-xs-6 col-md-3"><button id="noimperfeitoconjunctivo" class="btn btn-default btn-block">No imperfeito<br>do conjuctivo</button></div>
-    </div>
-    <div id="translatedText">...</div>
+  <div id="content" class="container">
   </div>
   <br><br>
   <h2>Exercicios:</h2>
-    <a href="exo_random_preterito.html" class="btn btn-default btn-block">Preterito do Indicativo</a>
-    <a href="exo_random_presentedoconjunctivo.html" class="btn btn-default btn-block">Presente do Conjunctivo</a>
-    <a href="exo_random_imperfeitodoconjunctivo.html" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
+  <a href="exo_random_preterito.html" class="btn btn-default btn-block">Preterito do Indicativo</a>
+  <a href="exo_random_presentedoconjunctivo.html" class="btn btn-default btn-block">Presente do Conjunctivo</a>
+  <a href="exo_random_imperfeitodoconjunctivo.html" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
+
   <script>
-  var isImperfeitoNoPreterito = true;
-  var conjuguingFunc = conjugueNoImperfeito;
 
-  function setTranslatedText( text ) {
-    var translatedText = document.getElementById("translatedText");
-    translatedText.textContent = text;    // innerText NOT supported by firefox
-  }
+  var ConjuguingModel = Backbone.Model.extend({
 
-  var conjugueNoImperfeito = function() {
-    console.log("conjugueNoImperfeito...");
-    var subject = document.getElementById("subject").value;
-    var verb =  document.getElementById("verb").value;
+    defaults: {
+      conjugued: "..."
+    },
 
-    setTranslatedText(subject + " " + JsPortugues.noimperfeito(subject, verb));
-    //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
+    conjugueNoImperfeito: function(subject, verb) {
+      console.log("conjugueNoImperfeito...");
+      this.set('conjugued', subject + " " + JsPortugues.noimperfeito(subject, verb));
+      this.conjuguingFunc = this.conjugueNoImperfeito;
+    },
 
-    conjuguingFunc = conjugueNoImperfeito;
-  }
+    conjugueNoPreterito: function(subject, verb) {
+      this.set('conjugued', subject + " " + JsPortugues.nopreterito(subject, verb));
+      this.conjuguingFunc = this.conjugueNoPreterito;
+    },
 
-  var conjugueNoPreterito = function() {
-    console.log("conjugueNoPreterito...");
-    var subject = document.getElementById("subject").value;
-    var verb =  document.getElementById("verb").value;
+    conjugueNoPresenteDoConjunctivo: function(subject, verb) {
+      this.set('conjugued', subject + " " + JsPortugues.nopresentedoconjunctivo(subject, verb));
+      this.conjuguingFunc = this.conjugueNoPresenteDoConjunctivo;
+    },
 
-    setTranslatedText(subject + " " + JsPortugues.nopreterito(subject, verb));
+    conjugueNoImperfeitoDoConjunctivo: function(subject, verb) {
+      this.set('conjugued', subject + " " + JsPortugues.noimperfeitodoconjunctivo(subject, verb));
+      this.conjuguingFunc = this.conjugueNoImperfeitoDoConjunctivo;
+    }
+  });
+  var conjuguing = new ConjuguingModel();
 
-    conjuguingFunc = conjugueNoPreterito;
-  }
 
-  var conjugueNoPresenteDoConjunctivo = function() {
-    console.log("conjugueNoPresenteDoConjunctivo...");
-    var subject = document.getElementById("subject").value;
-    var verb =  document.getElementById("verb").value;
 
-    setTranslatedText(subject + " " + JsPortugues.nopresentedoconjunctivo(subject, verb));
+  var ConjuguingView = Backbone.View.extend({
+    el: "#content",
 
-    conjuguingFunc = conjugueNoPresenteDoConjunctivo;
-  }
+    events: {
+      "keypress #verb": "onKeyPress",
+      "click #noimperfeito": "conjugueNoImperfeito",
+      "click #nopreterito": "conjugueNoPreterito",
+      "click #nopresenteconjunctivo": "conjugueNoPresenteDoConjunctivo",
+      "click #noimperfeitoconjunctivo": "conjugueNoImperfeitoDoConjunctivo",
+      "change #subject": "updateLastConjuging",
+    },
 
-  var conjugueNoImperfeitoDoConjunctivo = function() {
-    console.log("conjugueNoImperfeitoDoConjunctivo...");
-    var subject = document.getElementById("subject").value;
-    var verb =  document.getElementById("verb").value;
+    initialize: function() {
+      this.conjuguingFunc = this.conjugueNoImperfeito;
+      this.model.on('change', this.renderAnswer, this);
+    },
 
-    setTranslatedText(subject + " " + JsPortugues.noimperfeitodoconjunctivo(subject, verb));
+    template: _.template(
+      "<div class=\"row\">"+
+        "<div class=\"col-xs-3\"><select class=\"col-md-4\" id=\"subject\" name=\"subject\"></select></div>"+
+        "<div class=\"col-xs-9\"><input class=\"col-md-8\" type=\"text\" id=\"verb\"  autocapitalize=\"off\" autofocus></input></div>"+
+      "</div>"+
+      "<div class=\"row\">"+
+        "<div class=\"col-xs-6 col-md-3\"><button id=\"noimperfeito\" class=\"btn btn-default btn-block\">No imperfeito</button></div>"+
+        "<div class=\"col-xs-6 col-md-3\"><button id=\"nopreterito\" class=\"btn btn-default btn-block\">No preterito</button></div>"+
+        "<div class=\"col-xs-6 col-md-3\"><button id=\"nopresenteconjunctivo\" class=\"btn btn-default btn-block\">No presente<br>do conjuctivo</button></div>"+
+        "<div class=\"col-xs-6 col-md-3\"><button id=\"noimperfeitoconjunctivo\" class=\"btn btn-default btn-block\">No imperfeito<br>do conjuctivo</button></div>"+
+      "</div>"+
+      "<div id=\"translatedText\"><%=conjugued%></div>"
+    ),
 
-    conjuguingFunc = conjugueNoImperfeitoDoConjunctivo;
-  }
+    render: function() {
+      $(this.el).html( this.template(this.model.toJSON()) );
 
-  function updateLastConjuging() {
-    conjuguingFunc();
-  }
+      // Fill the list of subjects
+      var subjectList = document.getElementById('subject');
+      var subjects = JsPortugues.subjects;
+      var option;
+      for (var i=0, l=subjects.length; i<l; i+=1) {
+        option = document.createElement("option");
+        option.text = subjects[i];
+        option.value = subjects[i];
+        subjectList.add(option);
+      }
 
-  document.getElementById('noimperfeito').onclick = conjugueNoImperfeito;
-  document.getElementById('nopreterito').onclick = conjugueNoPreterito;
-  document.getElementById('nopresenteconjunctivo').onclick = conjugueNoPresenteDoConjunctivo;
-  document.getElementById('noimperfeitoconjunctivo').onclick = conjugueNoImperfeitoDoConjunctivo;
+      return this;
+    },
 
-  // Fill the list of subjects
-  var subjectList = document.getElementById('subject');
-  var subjects = JsPortugues.subjects;
-  var i = 0;
-  var option;
-  for (i=0, l=subjects.length; i<l; i+=1) {
-    option = document.createElement("option");
-    option.text = subjects[i];
-    option.value = subjects[i];
-    subjectList.add(option);
-  }
-  subjectList.onchange = updateLastConjuging;
+    renderAnswer: function() {
+      // innerText NOT supported by firefox
+      document.getElementById("translatedText").textContent = this.model.get('conjugued');
+    },
 
+    conjugueNoImperfeito: function() {
+      console.log("conjugueNoImperfeito...");
+      var subject = document.getElementById("subject").value;
+      var verb =  document.getElementById("verb").value;
+      this.model.conjugueNoImperfeito(subject, verb);
+    },
+
+    conjugueNoPreterito: function() {
+      console.log("conjugueNoPreterito...");
+      var subject = document.getElementById("subject").value;
+      var verb =  document.getElementById("verb").value;
+      this.model.conjugueNoPreterito(subject, verb);
+    },
+
+    conjugueNoPresenteDoConjunctivo: function() {
+      console.log("conjugueNoPresenteDoConjunctivo...");
+      var subject = document.getElementById("subject").value;
+      var verb =  document.getElementById("verb").value;
+      this.model.conjugueNoPresenteDoConjunctivo(subject, verb);
+    },
+
+    conjugueNoImperfeitoDoConjunctivo: function() {
+      console.log("conjugueNoImperfeitoDoConjunctivo...");
+      var subject = document.getElementById("subject").value;
+      var verb =  document.getElementById("verb").value;
+      this.model.conjugueNoImperfeitoDoConjunctivo(subject, verb);
+    },
+
+    updateLastConjuging: function() {
+      this.conjuguingFunc();
+    },
+
+    onKeyPress: function(e) {
+      if (e.which == 13 || e.keyCode == 13) {
+        this.updateLastConjuging();
+        //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
+      }
+    }
+
+  });
+
+  var conjuguingView = new ConjuguingView({model: conjuguing});
+  conjuguingView.render();
+
+
+
+  /*var App = Backbone.Router.extend({
+    routes: {
+      "": "index",
+      "index": "index",
+      "exercices/preterito": "exo_preterito",
+      "exercices/imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
+      "exercices/presentedoconjunctivo": "exo_presentedoconjunctivo",
+    },
+
+    initialize: function() {
+    },
+
+    start: function() {
+      Backbone.history.start({ pushState: true });
+    },
+
+    index: function() {},
+    exo_preterito: function() {},
+    exo_imperfeitodoconjunctivo: function() {},
+    exo_presentedoconjunctivo: function() {},
+  });
+
+  var app = new App();
+
+  $(function() {
+    app.start();
+  })*/
   </script>
 
 </body>
