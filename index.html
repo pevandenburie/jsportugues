@@ -54,6 +54,10 @@
       conjugued: "..."
     },
 
+    initialize: function() {
+      this.conjuguingFunc = this.conjugueNoImperfeito;
+    },
+
     conjugueNoImperfeito: function(subject, verb) {
       console.log("conjugueNoImperfeito...");
       this.set('conjugued', subject + " " + JsPortugues.noimperfeito(subject, verb));
@@ -88,7 +92,7 @@
       "click #nopreterito": "conjugueNoPreterito",
       "click #nopresenteconjunctivo": "conjugueNoPresenteDoConjunctivo",
       "click #noimperfeitoconjunctivo": "conjugueNoImperfeitoDoConjunctivo",
-      "change #subject": "updateLastConjuging",
+      "change #subject": "updateLastConjuguing",
     },
 
     initialize: function() {
@@ -160,13 +164,15 @@
       this.model.conjugueNoImperfeitoDoConjunctivo(subject, verb);
     },
 
-    updateLastConjuging: function() {
-      this.conjuguingFunc();
+    updateLastConjuguing: function() {
+      var subject = document.getElementById("subject").value;
+      var verb =  document.getElementById("verb").value;
+      this.model.conjuguingFunc(subject, verb);
     },
 
     onKeyPress: function(e) {
       if (e.which == 13 || e.keyCode == 13) {
-        this.updateLastConjuging();
+        this.updateLastConjuguing();
         //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
       }
     }
@@ -177,8 +183,7 @@
   conjuguingView.render();
 
 
-
-  /*var App = Backbone.Router.extend({
+/*var App = Backbone.Router.extend({
     routes: {
       "": "index",
       "index": "index",
