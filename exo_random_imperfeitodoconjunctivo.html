@@ -69,6 +69,7 @@
         useranswer: "",
         isSuccess: true,
         score: { nbSuccess: 0, nbFailure: 0 },
+        nbAnswers: 0,
       },
 
       initialize: function() {
@@ -82,11 +83,30 @@
       },
 
       submitAnswer: function(useranswer) {
+
+        console.log("submit answer: "+useranswer);
+
         var question = this.get('question');
+        var score = this.get('score');
+        var nbAnswers = this.get('nbAnswser');
+        var isSuccess = (useranswer === question.solution);
+        if (isSuccess) {
+          score.nbSuccess++;
+        }
+        else {
+          score.nbFailure++;
+        }
+        nbAnswers = (score.nbSuccess + score.nbFailure);
+
         this.set({
           useranswer: useranswer,
-          isSuccess: (useranswer === question.solution),
+          isSuccess: isSuccess,
+          score: score,
+          //nbAnswers: (score.nbSuccess + score.nbFailure),
         });
+        this.set('nbAnswers', nbAnswers);
+
+        this.refreshQuestion();
       },
     });
 
@@ -101,7 +121,8 @@
       },
 
       initialize: function() {
-        this.model.on('change', this.render, this);
+        this.model.on('change:question', this.render, this);
+        this.model.on('change:nbAnswers', this.renderSolution, this);
       },
 
       template: _.template(
@@ -113,16 +134,21 @@
         '</div>'),
 
       render: function() {
+        return this.$el.html( this.template(this.model) );
+      },
+
+      renderSolution: function() {
         // Display the solution
         var useranswer = this.model.get('useranswer');
         var question = this.model.get('question');
-        //log_insert("answerslog", (useranswer === question.solution), useranswer, question.solutionFullText);
-
-        return this.$el.html( this.template(this.model) );
+        var isSuccess = this.model.get('isSuccess');
+        log_insert("answerslog", isSuccess, useranswer, question.solutionFullText);
       },
 
       submitAnswer: function() {
         var useranswer = document.getElementById('useranswer').value;
+
+        console.log("submit answer: "+useranswer);
 
         // Check that's not a compulsive press on ENTER
         if (useranswer === "") {
