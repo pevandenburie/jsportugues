@@ -62,174 +62,125 @@
 
   <script>
 
-    var ImperfeitodoconjunctivoModel = Backbone.Model.extend({
+var ImperfeitodoconjunctivoModel = Backbone.Model.extend({
 
-      defaults: {
-        question: undefined,
-        useranswer: "",
-        isSuccess: true,
-        score: { nbSuccess: 0, nbFailure: 0 },
-        nbAnswers: 0,
-      },
+  defaults: {
+    question: undefined,
+    useranswer: "",
+    isSuccess: true,
+    score: { nbSuccess: 0, nbFailure: 0 },
+    nbAnswers: 0,
+  },
 
-      initialize: function() {
-        this.refreshQuestion();
-      },
+  initialize: function() {
+    this.refreshQuestion();
+    this.logList = new AnswerLogList();
+  },
 
-      refreshQuestion: function() {
-        question = JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion();
-        this.set('question', question);
-        this.set('useranswer', "");
-      },
+  refreshQuestion: function() {
+    question = JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion();
+    this.set('question', question);
+    this.set('useranswer', "");
+  },
 
-      submitAnswer: function(useranswer) {
+  submitAnswer: function(userAnswer) {
 
-        console.log("submit answer: "+useranswer);
+    console.log("submit answer: "+userAnswer);
 
-        var question = this.get('question');
-        var score = this.get('score');
-        var nbAnswers = this.get('nbAnswser');
-        var isSuccess = (useranswer === question.solution);
-        if (isSuccess) {
-          score.nbSuccess++;
-        }
-        else {
-          score.nbFailure++;
-        }
-        nbAnswers = (score.nbSuccess + score.nbFailure);
+    var question = this.get('question');
+    var score = this.get('score');
+    var nbAnswers = this.get('nbAnswser');
+    var isSuccess = (userAnswer === question.solution);
+    if (isSuccess) {
+      score.nbSuccess++;
+    }
+    else {
+      score.nbFailure++;
+    }
+    nbAnswers = (score.nbSuccess + score.nbFailure);
 
-        this.set({
-          useranswer: useranswer,
-          isSuccess: isSuccess,
-          score: score,
-          nbAnswers: nbAnswers,
-        });
-
-        this.refreshQuestion();
-      },
+    this.set({
+      useranswer: userAnswer,
+      isSuccess: isSuccess,
+      score: score,
+      nbAnswers: nbAnswers,
     });
 
-
-
-    var ImperfeitodoconjunctivoView = Backbone.View.extend({
-      el: "#content",
-
-      events: {
-        "click": "submitAnswer",
-        "keypress": "onKeyPress",
-      },
-
-      initialize: function() {
-        this.model.on('change:question', this.render, this);
-        this.model.on('change:nbAnswers', this.renderSolution, this);
-      },
-
-      template: _.template(
-        //'<div id=score><%="Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure)%></div>'+
-        '<div class="row">'+
-          '<div class="col-xs-5 col-sm-4 col-md-4"><label id=question><%=question.text%></label></div>'+
-          '<div class="col-xs-5 col-sm-4 col-md-4"><input type="text" id="useranswer"  size=15 autocapitalize="off" autofocus></input></div>'+
-          '<div class="col-xs-2 col-sm-4 col-md-4"><button id="submit">ok</button></div>'+
-        '</div>'),
-
-      render: function() {
-        var rendered = this.$el.html( this.template(this.model) );
-        document.getElementById("useranswer").focus();
-        return rendered;
-      },
-
-      renderSolution: function() {
-        // Display the solution
-        var useranswer = this.model.get('useranswer');
-        var question = this.model.get('question');
-        var isSuccess = this.model.get('isSuccess');
-        log_insert("answerslog", isSuccess, useranswer, question.solutionFullText);
-      },
-
-      submitAnswer: function() {
-        var useranswer = document.getElementById('useranswer').value;
-
-        console.log("submit answer: "+useranswer);
-
-        // Check that's not a compulsive press on ENTER
-        if (useranswer === "") {
-          document.getElementById("useranswer").focus(); // In case user pressed 'Ok' button
-          return;
-        }
-
-        this.model.submitAnswer(useranswer);
-
-        // Display the solution
-        // log_insert("answerslog", (useranswer === question.solution), useranswer, question.solutionFullText);
-
-        // Let's go for the next question!
-        //refreshScore();
-        //refreshQuestion();
-      },
-
-      onKeyPress: function(e) {
-        if (e.keyCode == 13) {
-          this.submitAnswer();
-          e.stopPropagation();
-        }
-      },
-
-
-      // refreshQuestion: function() {
-      //   // question = JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion();
-      //   document.getElementById('question').textContent = question.text;
-      //   document.getElementById('useranswer').value = "";
-      // },
-
-      refreshScore: function() {
-        document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
-      },
-
+    // Push the answer in the log model
+    var answerLogItem = new AnswerLogItem({
+    	userAnswer: userAnswer,
+    	isSuccess: isSuccess,
+    	solutionFullText: question.solutionFullText
     });
+    this.logList.add(answerLogItem);
 
-    var imperfeitodoconjunctivoModel = new ImperfeitodoconjunctivoModel();
-    var imperfeitodoconjunctivoView = new ImperfeitodoconjunctivoView({ model: imperfeitodoconjunctivoModel });
-    imperfeitodoconjunctivoView.render();
+    this.refreshQuestion();
+  },
+});
 
 
-    // The answer submitting function
-    // function submitAnswer()
-    // {
-    //   var useranswer = document.getElementById('useranswer').value;
-    //
-    //   // Check that's not a compulsive press on ENTER
-    //   if (useranswer === "") {
-    //     return;
-    //   }
-    //
-    //   // Display the solution
-    //   log_insert("answerslog", (useranswer === question.solution), useranswer, question.solutionFullText);
-    //
-    //   // Let's go for the next question!
-    //   refreshScore();
-    //   refreshQuestion();
-    // }
-    //
-    // // Global exo context
-    // var question;
-    // var score = { nbSuccess: 0, nbFailure: 0 };
-    //
-    // function refreshQuestion() {
-    //   question = JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion();
-    //   document.getElementById('question').textContent = question.text;
-    //   document.getElementById('useranswer').value = "";
-    // }
-    //
-    // function refreshScore() {
-    //   document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
-    // }
-    //
-    //
-    // // Init DOM
-    // document.getElementById('submit').onclick = submitAnswer;
-    // document.body.onkeydown = function(event) { if(event.keyCode == 13) { submitAnswer(); } };
-    // refreshScore();
-    // refreshQuestion();
+var ImperfeitodoconjunctivoView = Backbone.View.extend({
+  el: "#content",
+
+  events: {
+    "click": "submitAnswer",
+    "keypress": "onKeyPress",
+  },
+
+  initialize: function() {
+    this.model.on('change:question', this.render, this);
+
+    // Delegate the answser log rendering to another View
+    this.logListView = new AnswerLogListView({collection: this.model.logList});
+  },
+
+  template: _.template(
+    //'<div id=score><%="Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure)%></div>'+
+    '<div class="row">'+
+      '<div class="col-xs-5 col-sm-4 col-md-4"><label id=question><%=question.text%></label></div>'+
+      '<div class="col-xs-5 col-sm-4 col-md-4"><input type="text" id="useranswer"  size=15 autocapitalize="off" autofocus></input></div>'+
+      '<div class="col-xs-2 col-sm-4 col-md-4"><button id="submit">ok</button></div>'+
+    '</div>'),
+
+  render: function() {
+    var rendered = this.$el.html( this.template(this.model) );
+    document.getElementById("useranswer").focus();
+    return rendered;
+  },
+
+  submitAnswer: function() {
+    var useranswer = document.getElementById('useranswer').value;
+
+    console.log("submit answer: "+useranswer);
+
+    // Check that's not a compulsive press on ENTER
+    if (useranswer === "") {
+      document.getElementById("useranswer").focus(); // In case user pressed 'Ok' button
+      return;
+    }
+
+    this.model.submitAnswer(useranswer);
+  },
+
+  onKeyPress: function(e) {
+    if (e.keyCode == 13) {
+      this.submitAnswer();
+      e.stopPropagation();
+    }
+  },
+
+  refreshScore: function() {
+    document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
+  },
+
+});
+
+var imperfeitodoconjunctivoModel = new ImperfeitodoconjunctivoModel();
+var imperfeitodoconjunctivoView = new ImperfeitodoconjunctivoView({ model: new ImperfeitodoconjunctivoModel() });
+imperfeitodoconjunctivoView.render();
+
+
+
 
   </script>
 
