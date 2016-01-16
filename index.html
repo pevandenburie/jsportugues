@@ -26,6 +26,10 @@
   <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="imperfeitodoconjunctivo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="log.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="imperfeitodoconjunctivo.exo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.exo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="preterito.exo.js" charset="UTF-8"> </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
@@ -40,11 +44,12 @@
 
   <div id="content" class="container">
   </div>
+  <div id=answerslog></div>
   <br><br>
   <h2>Exercicios:</h2>
-  <a href="exo_random_preterito.html" class="btn btn-default btn-block">Preterito do Indicativo</a>
-  <a href="exo_random_presentedoconjunctivo.html" class="btn btn-default btn-block">Presente do Conjunctivo</a>
-  <a href="exo_random_imperfeitodoconjunctivo.html" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
+  <a href="exercices/preterito" class="btn btn-default btn-block">Preterito do Indicativo</a>
+  <a href="exercises/presentedoconjunctivo" class="btn btn-default btn-block">Presente do Conjunctivo</a>
+  <a href="exercises/imperfeitodoconjunctivo" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
 
   <script>
 
@@ -79,7 +84,7 @@
       this.conjuguingFunc = this.conjugueNoImperfeitoDoConjunctivo;
     }
   });
-  var conjuguing = new ConjuguingModel();
+  // var conjuguing = new ConjuguingModel();
 
 
 
@@ -179,36 +184,175 @@
 
   });
 
-  var conjuguingView = new ConjuguingView({model: conjuguing});
-  conjuguingView.render();
+  // var conjuguingView = new ConjuguingView({model: conjuguing});
+  // conjuguingView.render();
 
 
-/*var app = new (Backbone.Router.extend({
-    routes: {
-      "": "index",
-      "index": "index",
-      "exercices/preterito": "exo_preterito",
-      "exercices/imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
-      "exercices/presentedoconjunctivo": "exo_presentedoconjunctivo",
-    },
+var ExoModel = Backbone.Model.extend({
 
-    initialize: function() {
-    },
+  defaults: {
+    question: undefined,
+    useranswer: "",
+    isSuccess: true,
+    score: { nbSuccess: 0, nbFailure: 0 },
+    nbAnswers: 0,
+  },
 
-    start: function() {
-      Backbone.history.start({ pushState: true });
-    },
+  initialize: function(classProperties) {
+    console.log("classProperties: "+classProperties);
+    this.refreshQuestion();
+    this.logList = new AnswerLogList();
+  },
 
-    index: function() {},
-    exo_preterito: function() {},
-    exo_imperfeitodoconjunctivo: function() {},
-    exo_presentedoconjunctivo: function() {},
-  }))();
+  refreshQuestion: function() {
+    question = this.createQuestion();
+    this.set('question', question);
+    this.set('useranswer', "");
+  },
 
-  $(function() {
-    app.start();
-  })
-  */
+  submitAnswer: function(userAnswer) {
+
+    console.log("submit answer: "+userAnswer);
+
+    var question = this.get('question');
+    var score = this.get('score');
+    var nbAnswers = this.get('nbAnswser');
+    var isSuccess = (userAnswer === question.solution);
+    if (isSuccess) {
+      score.nbSuccess++;
+    }
+    else {
+      score.nbFailure++;
+    }
+    nbAnswers = (score.nbSuccess + score.nbFailure);
+
+    this.set({
+      useranswer: userAnswer,
+      isSuccess: isSuccess,
+      score: score,
+      nbAnswers: nbAnswers,
+    });
+
+    // Push the answer in the log model
+    var answerLogItem = new AnswerLogItem({
+    	userAnswer: userAnswer,
+    	isSuccess: isSuccess,
+    	solutionFullText: question.solutionFullText
+    });
+    this.logList.add(answerLogItem);
+
+    this.refreshQuestion();
+  },
+});
+
+var ImperfeitodoconjunctivoModel = ExoModel.extend({
+  createQuestion: JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion
+});
+
+var PresentedoconjunctivoModel = ExoModel.extend({
+  createQuestion: JsPortugues.exercises.presentedoconjunctivo.createQuestion
+});
+
+var PreteritoModel = ExoModel.extend({
+  createQuestion: JsPortugues.exercises.preterito.createQuestion
+});
+
+var ExoView = Backbone.View.extend({
+  el: "#content",
+
+  events: {
+    "click": "submitAnswer",
+    "keypress": "onKeyPress",
+  },
+
+  initialize: function() {
+    this.model.on('change:question', this.render, this);
+
+    // Delegate the answser log rendering to another View
+    this.logListView = new AnswerLogListView({collection: this.model.logList});
+  },
+
+  template: _.template(
+    //'<div id=score><%="Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure)%></div>'+
+    '<div class="row">'+
+      '<div class="col-xs-5 col-sm-4 col-md-4"><label id=question><%=question.text%></label></div>'+
+      '<div class="col-xs-5 col-sm-4 col-md-4"><input type="text" id="useranswer"  size=15 autocapitalize="off" autofocus></input></div>'+
+      '<div class="col-xs-2 col-sm-4 col-md-4"><button id="submit">ok</button></div>'+
+    '</div>'),
+
+  render: function() {
+    var rendered = this.$el.html( this.template(this.model) );
+    document.getElementById("useranswer").focus();
+    return rendered;
+  },
+
+  submitAnswer: function() {
+    var useranswer = document.getElementById('useranswer').value;
+
+    console.log("submit answer: "+useranswer);
+
+    // Check that's not a compulsive press on ENTER
+    if (useranswer === "") {
+      document.getElementById("useranswer").focus(); // In case user pressed 'Ok' button
+      return;
+    }
+
+    this.model.submitAnswer(useranswer);
+  },
+
+  onKeyPress: function(e) {
+    if (e.keyCode == 13) {
+      this.submitAnswer();
+      e.stopPropagation();
+    }
+  },
+
+  refreshScore: function() {
+    document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
+  },
+
+});
+
+
+var app = new (Backbone.Router.extend({
+  routes: {
+    "": "index",
+    "index": "index",
+    "exercices/preterito": "exo_preterito",
+    "exercices/imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
+    "exercices/presentedoconjunctivo": "exo_presentedoconjunctivo",
+  },
+
+  initialize: function() {
+    this.conjuguingView = new ConjuguingView({model: new ConjuguingModel()});
+  },
+
+  start: function() {
+    Backbone.history.start({ pushState: true });
+  },
+
+  index: function() {
+    this.conjuguingView.render();
+  },
+  exo_preterito: function() {
+    console.log('preterito');
+    this.preteritoView.render();
+  },
+  exo_imperfeitodoconjunctivo: function() {
+    console.log('imperfeitodoconjunctivoView');
+    this.imperfeitodoconjunctivoView.render();
+  },
+  exo_presentedoconjunctivo: function() {
+    console.log('presentedoconjunctivo');
+    this.presentedoconjunctivoView.render();
+  },
+}))();
+
+$(function() {
+  app.start();
+  app.navigate("", {trigger: true});
+})
+
   </script>
 
 </body>

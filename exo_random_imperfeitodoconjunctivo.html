@@ -24,6 +24,10 @@
   <script type="text/javascript" src="log.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="imperfeitodoconjunctivo.js" charset="UTF-8"> </script>
   <script type="text/javascript" src="imperfeitodoconjunctivo.exo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="presentedoconjunctivo.exo.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="preterito.js" charset="UTF-8"> </script>
+  <script type="text/javascript" src="preterito.exo.js" charset="UTF-8"> </script>
 
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -41,7 +45,7 @@
 
 
 <body>
-    <div class="container">
+  <div class="container">
     <div class="page-header">
       <h1>JsPortugues</h1>
       <h4>Exo Imperfeito do Conjunctivo</h4>
@@ -62,7 +66,7 @@
 
   <script>
 
-var ImperfeitodoconjunctivoModel = Backbone.Model.extend({
+var ExoModel = Backbone.Model.extend({
 
   defaults: {
     question: undefined,
@@ -72,13 +76,14 @@ var ImperfeitodoconjunctivoModel = Backbone.Model.extend({
     nbAnswers: 0,
   },
 
-  initialize: function() {
+  initialize: function(classProperties) {
+    console.log("classProperties: "+classProperties);
     this.refreshQuestion();
     this.logList = new AnswerLogList();
   },
 
   refreshQuestion: function() {
-    question = JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion();
+    question = this.createQuestion();
     this.set('question', question);
     this.set('useranswer', "");
   },
@@ -118,8 +123,19 @@ var ImperfeitodoconjunctivoModel = Backbone.Model.extend({
   },
 });
 
+var ImperfeitodoconjunctivoModel = ExoModel.extend({
+  createQuestion: JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion
+});
 
-var ImperfeitodoconjunctivoView = Backbone.View.extend({
+var PresentedoconjunctivoModel = ExoModel.extend({
+  createQuestion: JsPortugues.exercises.presentedoconjunctivo.createQuestion
+});
+
+var PreteritoModel = ExoModel.extend({
+  createQuestion: JsPortugues.exercises.preterito.createQuestion
+});
+
+var ExoView = Backbone.View.extend({
   el: "#content",
 
   events: {
@@ -175,12 +191,44 @@ var ImperfeitodoconjunctivoView = Backbone.View.extend({
 
 });
 
-var imperfeitodoconjunctivoModel = new ImperfeitodoconjunctivoModel();
-var imperfeitodoconjunctivoView = new ImperfeitodoconjunctivoView({ model: new ImperfeitodoconjunctivoModel() });
-imperfeitodoconjunctivoView.render();
+var appExos = new (Backbone.Router.extend({
+  routes: {
+    "": "imperfeitodoconjunctivo",
+    "imperfeitodoconjunctivo": "imperfeitodoconjunctivo",
+    "presentedoconjunctivo": "presentedoconjunctivo",
+    "preterito": "preterito",
+  },
 
+  initialize: function() {
+    this.imperfeitodoconjunctivoView = new ExoView({ model: new ImperfeitodoconjunctivoModel() });
+    this.presentedoconjunctivoView = new ExoView({ model: new PresentedoconjunctivoModel() });
+    this.preteritoView = new ExoView({ model: new PreteritoModel() });
+  },
 
+	start: function() {
+    Backbone.history.start({pushState: true});
+	},
 
+  imperfeitodoconjunctivo: function() {
+    console.log('imperfeitodoconjunctivoView');
+    this.imperfeitodoconjunctivoView.render();
+  },
+
+  presentedoconjunctivo: function() {
+    console.log('presentedoconjunctivo');
+    this.presentedoconjunctivoView.render();
+  },
+
+  preterito: function() {
+    console.log('preterito');
+    this.preteritoView.render();
+  },
+}));
+
+$(function() {
+	appExos.start();
+  appExos.navigate("", {trigger: true});
+} );
 
   </script>
 
