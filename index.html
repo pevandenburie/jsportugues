@@ -204,6 +204,7 @@ var ExoModel = Backbone.Model.extend({
     isSuccess: true,
     score: { nbSuccess: 0, nbFailure: 0 },
     nbAnswers: 0,
+    title: "Undefined",
   },
 
   initialize: function(classProperties) {
@@ -254,14 +255,17 @@ var ExoModel = Backbone.Model.extend({
 });
 
 var ImperfeitodoconjunctivoModel = ExoModel.extend({
+  title: "Exo Imperfeito do Conjunctivo",
   createQuestion: JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion
 });
 
 var PresentedoconjunctivoModel = ExoModel.extend({
+  title: "Exo Presente do Conjunctivo",
   createQuestion: JsPortugues.exercises.presentedoconjunctivo.createQuestion
 });
 
 var PreteritoModel = ExoModel.extend({
+  title: "Exo Preterito do Indicativo",
   createQuestion: JsPortugues.exercises.preterito.createQuestion
 });
 
@@ -269,7 +273,7 @@ var ExoView = Backbone.View.extend({
   el: "#content",
 
   events: {
-    "click": "submitAnswer",
+    "click #submit": "submitAnswer",
     "keypress": "onKeyPress",
   },
 
@@ -282,6 +286,7 @@ var ExoView = Backbone.View.extend({
 
   template: _.template(
     //'<div id=score><%="Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure)%></div>'+
+    '<strong><%=title%></strong>'+
     '<div class="row">'+
       '<div class="col-xs-5 col-sm-4 col-md-4"><label id=question><%=question.text%></label></div>'+
       '<div class="col-xs-5 col-sm-4 col-md-4"><input type="text" id="useranswer"  size=15 autocapitalize="off" autofocus></input></div>'+
@@ -290,7 +295,9 @@ var ExoView = Backbone.View.extend({
 
   render: function() {
     var rendered = this.$el.html( this.template(this.model) );
+        console.log(rendered);
     document.getElementById("useranswer").focus();
+
     return rendered;
   },
 
@@ -315,6 +322,7 @@ var ExoView = Backbone.View.extend({
     }
   },
 
+  // to be put in the template
   refreshScore: function() {
     document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
   },
@@ -343,23 +351,34 @@ var app = new (Backbone.Router.extend({
   },
 
   index: function() {
-    this.conjuguingView.render();
+    // this.conjuguingView.render();
+    switchView(this.conjuguingView);
   },
   exo_preterito: function() {
     console.log('preteritoView');
-    this.preteritoView.render();
+    // this.preteritoView.render();
+    switchView(this.preteritoView);
   },
   exo_imperfeitodoconjunctivo: function() {
     console.log('imperfeitodoconjunctivoView');
-    this.imperfeitodoconjunctivoView.render();
+    // this.imperfeitodoconjunctivoView.render();
+    switchView(this.imperfeitodoconjunctivoView);
   },
   exo_presentedoconjunctivo: function() {
     console.log('presentedoconjunctivoView');
-    this.presentedoconjunctivoView.render();
+    // this.presentedoconjunctivoView.render();
+    switchView(this.presentedoconjunctivoView);
   },
 }))();
 
-
+function switchView(newView) {
+  if (currentView) {
+    currentView.remove();
+  }
+  currentView = newView;
+  currentView.render();
+}
+var currentView = undefined;
 
 $(function() {
   app.start();
