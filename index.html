@@ -96,7 +96,7 @@
 
 
   var ConjuguingView = Backbone.View.extend({
-    el: "#content",
+    // el: "#content",
 
     events: {
       "keypress #verb": "onKeyPress",
@@ -124,28 +124,24 @@
         "<div class=\"col-xs-6 col-md-3\"><button id=\"noimperfeitoconjunctivo\" class=\"btn btn-default btn-block\">No imperfeito<br>do conjuctivo</button></div>"+
       "</div>"+
       "<div id=\"translatedText\"><%=conjugued%></div>"
-      // "<br><br>"+
-      // "<h2>Exercicios:</h2>"+
-      // "<a href=\"/exercices/preterito\" class=\"btn btn-default btn-block\">Preterito do Indicativo</a>"+
-      // "<a href=\"/exercises/presentedoconjunctivo\" class=\"btn btn-default btn-block\">Presente do Conjunctivo</a>"+
-      // "<a href=\"/exercises/imperfeitodoconjunctivo\" class=\"btn btn-default btn-block\">Imperfeito do Conjunctivo</a>"
     ),
 
     render: function() {
-      $(this.el).html( this.template(this.model.toJSON()) );
+      return this.$el.html( this.template(this.model.toJSON()) );
 
+      // Ensure the document is loaded first !
       // Fill the list of subjects
-      var subjectList = document.getElementById('subject');
-      var subjects = JsPortugues.subjects;
-      var option;
-      for (var i=0, l=subjects.length; i<l; i+=1) {
-        option = document.createElement("option");
-        option.text = subjects[i];
-        option.value = subjects[i];
-        subjectList.add(option);
-      }
+      // var subjectList = document.getElementById('subject');
+      // var subjects = JsPortugues.subjects;
+      // var option;
+      // for (var i=0, l=subjects.length; i<l; i+=1) {
+      //   option = document.createElement("option");
+      //   option.text = subjects[i];
+      //   option.value = subjects[i];
+      //   subjectList.add(option);
+      // }
 
-      return this;
+      // return this;
     },
 
     renderAnswer: function() {
@@ -270,7 +266,7 @@ var PreteritoModel = ExoModel.extend({
 });
 
 var ExoView = Backbone.View.extend({
-  el: "#content",
+  // el: "#content",
 
   events: {
     "click #submit": "submitAnswer",
@@ -295,8 +291,9 @@ var ExoView = Backbone.View.extend({
 
   render: function() {
     var rendered = this.$el.html( this.template(this.model) );
-        console.log(rendered);
-    document.getElementById("useranswer").focus();
+
+    // ensure document is updated before setting the focus
+    // document.getElementById("useranswer").focus();
 
     return rendered;
   },
@@ -330,6 +327,21 @@ var ExoView = Backbone.View.extend({
 });
 
 
+var AppView = Backbone.View.extend({
+  el: "#content",
+
+  currentView: undefined,
+
+  render: function(newView) {
+    if (this.currentView) {
+      this.currentView.remove();
+    }
+    this.$el.append(newView.$el);
+    this.currentView = newView;
+  },
+});
+
+
 var app = new (Backbone.Router.extend({
   routes: {
     "": "index",
@@ -340,6 +352,7 @@ var app = new (Backbone.Router.extend({
   },
 
   initialize: function() {
+    this.appView = new AppView();
     this.conjuguingView = new ConjuguingView({model: new ConjuguingModel()});
     this.preteritoView = new ExoView({model: new PreteritoModel()});
     this.imperfeitodoconjunctivoView = new ExoView({model: new ImperfeitodoconjunctivoModel()});
@@ -351,34 +364,22 @@ var app = new (Backbone.Router.extend({
   },
 
   index: function() {
-    // this.conjuguingView.render();
-    switchView(this.conjuguingView);
+    this.appView.render(this.conjuguingView);
   },
   exo_preterito: function() {
     console.log('preteritoView');
-    // this.preteritoView.render();
-    switchView(this.preteritoView);
+    this.appView.render(this.preteritoView);
   },
   exo_imperfeitodoconjunctivo: function() {
     console.log('imperfeitodoconjunctivoView');
-    // this.imperfeitodoconjunctivoView.render();
-    switchView(this.imperfeitodoconjunctivoView);
+    this.appView.render(this.imperfeitodoconjunctivoView);
   },
   exo_presentedoconjunctivo: function() {
     console.log('presentedoconjunctivoView');
-    // this.presentedoconjunctivoView.render();
-    switchView(this.presentedoconjunctivoView);
+    this.appView.render(this.presentedoconjunctivoView);
   },
 }))();
 
-function switchView(newView) {
-  if (currentView) {
-    currentView.remove();
-  }
-  currentView = newView;
-  currentView.render();
-}
-var currentView = undefined;
 
 $(function() {
   app.start();
