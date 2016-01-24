@@ -115,7 +115,11 @@
       "<strong>Conjugado</strong>"+
       "<br><br>"+
       "<div class=\"row\">"+
-        "<div class=\"col-xs-3\"><select class=\"col-md-4\" id=\"subject\" name=\"subject\"></select></div>"+
+        "<div class=\"col-xs-3\"><select class=\"col-md-4\" id=\"subject\" name=\"subject\">"+
+          "<%_.forEach(subjects, function (s) {%>"+
+          "<option value=\"<%=s%>\"><%=s%></option>"+
+          "<%})%>"+
+        "</select></div>"+
         "<div class=\"col-xs-9\"><input class=\"col-md-8\" type=\"text\" id=\"verb\"  autocapitalize=\"off\" autofocus></input></div>"+
       "</div>"+
       "<div class=\"row\">"+
@@ -128,20 +132,10 @@
     ),
 
     render: function() {
-      this.$el.html( this.template(this.model.toJSON()) );
-
-      // Ensure the document is loaded first !
       // Fill the list of subjects
-      // var subjectList = document.getElementById('subject');
-      // var subjects = JsPortugues.subjects;
-      // var option;
-      // for (var i=0, l=subjects.length; i<l; i+=1) {
-      //   option = document.createElement("option");
-      //   option.text = subjects[i];
-      //   option.value = subjects[i];
-      //   subjectList.add(option);
-      // }
-
+      var attr = _.clone(this.model.attributes);
+      attr.subjects = JsPortugues.subjects;
+      this.$el.html( this.template(attr) );
       return this;
     },
 
