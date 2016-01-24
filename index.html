@@ -53,12 +53,6 @@
 
   <div id="content" class="container">
   </div>
-  <!-- <div id=answerslog></div>
-  <br><br>
-  <h2>Exercicios:</h2>
-  <a id=preteritoBtn href="/preterito" class="btn btn-default btn-block" data-backbone="true">Preterito do Indicativo</a>
-  <a id=presentedoconjunctivoBtn href="/presentedoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Presente do Conjunctivo</a>
-  <a id=imperfeitodoconjunctivoBtn href="/imperfeitodoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Imperfeito do Conjunctivo</a> -->
 
   <script>
 
@@ -96,8 +90,6 @@
 
 
   var ConjuguingView = Backbone.View.extend({
-    // el: "#content",
-
     events: {
       "keypress #verb": "onKeyPress",
       "click #noimperfeito": "conjugueNoImperfeito",
@@ -120,7 +112,8 @@
     // }
 
     template: _.template(
-      "<strong>Conjuguing</strong>"+
+      "<strong>Conjugado</strong>"+
+      "<br><br>"+
       "<div class=\"row\">"+
         "<div class=\"col-xs-3\"><select class=\"col-md-4\" id=\"subject\" name=\"subject\"></select></div>"+
         "<div class=\"col-xs-9\"><input class=\"col-md-8\" type=\"text\" id=\"verb\"  autocapitalize=\"off\" autofocus></input></div>"+
@@ -135,9 +128,7 @@
     ),
 
     render: function() {
-      // return this.$el.html( this.template(this.model.toJSON()) );
       this.$el.html( this.template(this.model.toJSON()) );
-      return this;
 
       // Ensure the document is loaded first !
       // Fill the list of subjects
@@ -151,7 +142,7 @@
       //   subjectList.add(option);
       // }
 
-      // return this;
+      return this;
     },
 
     renderAnswer: function() {
@@ -318,6 +309,7 @@ var ExoView = Backbone.View.extend({
 
     // ensure document is updated before setting the focus
     // document.getElementById("useranswer").focus();
+    // $("#useranswer").focus();
 
     return this;
   },
@@ -358,7 +350,6 @@ var JsPortuguesApp = new (Backbone.View.extend({
   // },
   //Collections: {},
   Views: {
-    // App: AppView,
     Conjuguing: ConjuguingView,
     Exo: ExoView
   },
@@ -417,26 +408,21 @@ var JsPortuguesApp = new (Backbone.View.extend({
     if (this.currentView) {
       this.currentView.remove();
     }
-    // this.$el.append(newView.$el);
     this.$el.append(newView.render().el);
     this.currentView = newView;
     return this;
   },
 
   index: function() {
-    console.log('index');
     this.render(this.conjuguing);
   },
   exo_preterito: function() {
-    console.log('preteritoView');
     this.render(this.preterito);
   },
   exo_imperfeitodoconjunctivo: function() {
-    console.log('imperfeitodoconjunctivoView');
     this.render(this.imperfeitodoconjunctivo);
   },
   exo_presentedoconjunctivo: function() {
-    console.log('presentedoconjunctivoView');
     this.render(this.presentedoconjunctivo);
   },
 
