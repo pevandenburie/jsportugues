@@ -53,12 +53,12 @@
 
   <div id="content" class="container">
   </div>
-  <div id=answerslog></div>
+  <!-- <div id=answerslog></div>
   <br><br>
   <h2>Exercicios:</h2>
-  <a id=preteritoBtn href="/preterito" class="btn btn-default btn-block">Preterito do Indicativo</a>
-  <a id=presentedoconjunctivoBtn href="/presentedoconjunctivo" class="btn btn-default btn-block">Presente do Conjunctivo</a>
-  <a id=imperfeitodoconjunctivoBtn href="/imperfeitodoconjunctivo" class="btn btn-default btn-block">Imperfeito do Conjunctivo</a>
+  <a id=preteritoBtn href="/preterito" class="btn btn-default btn-block" data-backbone="true">Preterito do Indicativo</a>
+  <a id=presentedoconjunctivoBtn href="/presentedoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Presente do Conjunctivo</a>
+  <a id=imperfeitodoconjunctivoBtn href="/imperfeitodoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Imperfeito do Conjunctivo</a> -->
 
   <script>
 
@@ -109,10 +109,18 @@
 
     initialize: function() {
       this.conjuguingFunc = this.conjugueNoImperfeito;
-      this.model.on('change', this.renderAnswer, this);
+
+      this.listenTo(this.model, 'change', this.renderAnswer, this);
+      // this.model.on('change', this.renderAnswer, this);
     },
 
+    //Try this using a Form:
+    // events: {
+    //   submit: "updateLastConjuguing"
+    // }
+
     template: _.template(
+      "<strong>Conjuguing</strong>"+
       "<div class=\"row\">"+
         "<div class=\"col-xs-3\"><select class=\"col-md-4\" id=\"subject\" name=\"subject\"></select></div>"+
         "<div class=\"col-xs-9\"><input class=\"col-md-8\" type=\"text\" id=\"verb\"  autocapitalize=\"off\" autofocus></input></div>"+
@@ -127,7 +135,9 @@
     ),
 
     render: function() {
-      return this.$el.html( this.template(this.model.toJSON()) );
+      // return this.$el.html( this.template(this.model.toJSON()) );
+      this.$el.html( this.template(this.model.toJSON()) );
+      return this;
 
       // Ensure the document is loaded first !
       // Fill the list of subjects
@@ -189,8 +199,8 @@
         //e.preventDefault(); // http://stackoverflow.com/questions/7195844/writing-text-on-div-using-javascript
       }
     }
-
   });
+
 
 var ExoModel = Backbone.Model.extend({
 
@@ -217,7 +227,7 @@ var ExoModel = Backbone.Model.extend({
 
   submitAnswer: function(userAnswer) {
 
-    console.log("submit answer: "+userAnswer);
+    console.log(this.title+": submit answer: "+userAnswer);
 
     var question = this.get('question');
     var score = this.get('score');
@@ -265,43 +275,55 @@ var PreteritoModel = ExoModel.extend({
   createQuestion: JsPortugues.exercises.preterito.createQuestion
 });
 
-var ExoView = Backbone.View.extend({
-  // el: "#content",
 
+var ExoView = Backbone.View.extend({
   events: {
     "click #submit": "submitAnswer",
     "keypress": "onKeyPress",
   },
 
-  initialize: function() {
-    this.model.on('change:question', this.render, this);
+  initialize: function(options) {
+
+    // when given by new ExoView({description: "Imperfeito do Conjunctivo"});
+    // this.description = options.description;
+
+    // Use listenTo to be able to remove the view easily
+    //this.model.on('change:question', this.render, this);
+    this.listenTo(this.model, 'change:question', this.render, this);
+
 
     // Delegate the answser log rendering to another View
     this.logListView = new AnswerLogListView({collection: this.model.logList});
   },
 
+  //Try this using a Form:
+  // events: {
+  //   submit: "submitAnswer"
+  // }
+
   template: _.template(
     //'<div id=score><%="Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure)%></div>'+
     '<strong><%=title%></strong>'+
+    '<br><br>'+
     '<div class="row">'+
       '<div class="col-xs-5 col-sm-4 col-md-4"><label id=question><%=question.text%></label></div>'+
       '<div class="col-xs-5 col-sm-4 col-md-4"><input type="text" id="useranswer"  size=15 autocapitalize="off" autofocus></input></div>'+
       '<div class="col-xs-2 col-sm-4 col-md-4"><button id="submit">ok</button></div>'+
-    '</div>'),
+    '</div>'+
+    '<div id=answerslog></div>'),
 
   render: function() {
-    var rendered = this.$el.html( this.template(this.model) );
+    this.$el.html( this.template(this.model) );
+    this.logListView.render();
 
     // ensure document is updated before setting the focus
     // document.getElementById("useranswer").focus();
 
-    return rendered;
+    return this;
   },
 
   submitAnswer: function() {
     var useranswer = document.getElementById('useranswer').value;
-
-    console.log("submit answer: "+useranswer);
 
     // Check that's not a compulsive press on ENTER
     if (useranswer === "") {
@@ -327,76 +349,162 @@ var ExoView = Backbone.View.extend({
 });
 
 
-var AppView = Backbone.View.extend({
-  el: "#content",
+var JsPortuguesApp = new (Backbone.View.extend({
+  // Models: {
+  //   Conjuguing: ConjuguingModel,
+  //   Imperfeitodoconjunctivo: ImperfeitodoconjunctivoModel,
+  //   Presentedoconjunctivo: PresentedoconjunctivoModel,
+  //   Preterito: PreteritoModel,
+  // },
+  //Collections: {},
+  Views: {
+    // App: AppView,
+    Conjuguing: ConjuguingView,
+    Exo: ExoView
+  },
+
+  Router: new (Backbone.Router.extend({
+    routes: {
+      "": "index",
+      "index": "index",
+      "preterito": "exo_preterito",
+      "imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
+      "presentedoconjunctivo": "exo_presentedoconjunctivo",
+    },
+
+    index: function() {
+      console.log('index');
+      JsPortuguesApp.index();
+    },
+    exo_preterito: function() {
+      console.log('preteritoView');
+      JsPortuguesApp.exo_preterito();
+    },
+    exo_imperfeitodoconjunctivo: function() {
+      console.log('imperfeitodoconjunctivoView');
+      JsPortuguesApp.exo_imperfeitodoconjunctivo();
+    },
+    exo_presentedoconjunctivo: function() {
+      console.log('presentedoconjunctivoView');
+      JsPortuguesApp.exo_presentedoconjunctivo();
+    },
+  }))(),
+
+
+  events: {
+    "click a[data-backbone]": function(e) {
+        console.log("Click "+e.target.pathname);
+        e.preventDefault();
+        Backbone.history.navigate(e.target.pathname, {trigger: true});
+    },
+  },
 
   currentView: undefined,
 
+  template: _.template(
+    // "<div id=answerslog></div>"+
+    // "<br><br>"+
+    // "<h2>Exercicios:</h2>"+
+    '<a href="/" class="btn btn-default btn-block" data-backbone="true">Conjuguing</a>'+
+    '<a href="/preterito" class="btn btn-default btn-block" data-backbone="true">Preterito do Indicativo</a>'+
+    '<a href="/presentedoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Presente do Conjunctivo</a>'+
+    '<a href="/imperfeitodoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Imperfeito do Conjunctivo</a>'+
+    '<br><br>'
+  ),
+
   render: function(newView) {
+    this.$el.html(this.template());
     if (this.currentView) {
       this.currentView.remove();
     }
-    this.$el.append(newView.$el);
+    // this.$el.append(newView.$el);
+    this.$el.append(newView.render().el);
     this.currentView = newView;
+    return this;
   },
-});
 
-
-var app = new (Backbone.Router.extend({
-  routes: {
-    "": "index",
-    "index": "index",
-    "preterito": "exo_preterito",
-    "imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
-    "presentedoconjunctivo": "exo_presentedoconjunctivo",
+  index: function() {
+    console.log('index');
+    this.render(this.conjuguing);
+  },
+  exo_preterito: function() {
+    console.log('preteritoView');
+    this.render(this.preterito);
+  },
+  exo_imperfeitodoconjunctivo: function() {
+    console.log('imperfeitodoconjunctivoView');
+    this.render(this.imperfeitodoconjunctivo);
+  },
+  exo_presentedoconjunctivo: function() {
+    console.log('presentedoconjunctivoView');
+    this.render(this.presentedoconjunctivo);
   },
 
   initialize: function() {
-    this.appView = new AppView();
-    this.conjuguingView = new ConjuguingView({model: new ConjuguingModel()});
-    this.preteritoView = new ExoView({model: new PreteritoModel()});
-    this.imperfeitodoconjunctivoView = new ExoView({model: new ImperfeitodoconjunctivoModel()});
-    this.presentedoconjunctivoView = new ExoView({model: new PresentedoconjunctivoModel()});
+    // this.View.appView = new AppView();
+    this.conjuguing = new this.Views.Conjuguing({model: new ConjuguingModel()});
+    this.preterito = new this.Views.Exo({model: new PreteritoModel()});
+    this.imperfeitodoconjunctivo = new this.Views.Exo({model: new ImperfeitodoconjunctivoModel()});
+    this.presentedoconjunctivo = new this.Views.Exo({model: new PresentedoconjunctivoModel()});
   },
 
   start: function() {
     Backbone.history.start({ pushState: true });
+    // this.$el.render(this.currentView.render().el);
+    Backbone.history.navigate("", {trigger: true});
   },
+}))({el: "#content"});
 
-  index: function() {
-    this.appView.render(this.conjuguingView);
-  },
-  exo_preterito: function() {
-    console.log('preteritoView');
-    this.appView.render(this.preteritoView);
-  },
-  exo_imperfeitodoconjunctivo: function() {
-    console.log('imperfeitodoconjunctivoView');
-    this.appView.render(this.imperfeitodoconjunctivoView);
-  },
-  exo_presentedoconjunctivo: function() {
-    console.log('presentedoconjunctivoView');
-    this.appView.render(this.presentedoconjunctivoView);
-  },
-}))();
+
+
+// var app = new (Backbone.Router.extend({
+//   routes: {
+//     "": "index",
+//     "index": "index",
+//     "preterito": "exo_preterito",
+//     "imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
+//     "presentedoconjunctivo": "exo_presentedoconjunctivo",
+//   },
+//
+//   // start: function() {
+//   //   Backbone.history.start({ pushState: true });
+//   // },
+//
+//   index: function() {
+//     this.appView.render(this.conjuguingView);
+//   },
+//   exo_preterito: function() {
+//     console.log('preteritoView');
+//     this.appView.render(this.preteritoView);
+//   },
+//   exo_imperfeitodoconjunctivo: function() {
+//     console.log('imperfeitodoconjunctivoView');
+//     this.appView.render(this.imperfeitodoconjunctivoView);
+//   },
+//   exo_presentedoconjunctivo: function() {
+//     console.log('presentedoconjunctivoView');
+//     this.appView.render(this.presentedoconjunctivoView);
+//   },
+// }))();
 
 
 $(function() {
-  app.start();
+  //JsPortuguesApp.render();
+  JsPortuguesApp.start();
 
   // on every click, check if it's an href that can be handled by the router
   // More on https://gist.github.com/colllin/5717284
-  $(document.body).on('click', 'a', function(event) {
-    var href = $(this).attr('href');
-
-    //if (route.test(href)) {
-        event.preventDefault();
-
-        console.log('Navigate to '+href);
-        //Backbone.history.navigate(href, {trigger: true});
-        app.navigate(href, {trigger: true});
-    //}
-  });
+  // $(document.body).on('click', 'a', function(event) {
+  //   var href = $(this).attr('href');
+  //
+  //   //if (route.test(href)) {
+  //       event.preventDefault();
+  //
+  //       console.log('Navigate to '+href);
+  //       //Backbone.history.navigate(href, {trigger: true});
+  //       app.navigate(href, {trigger: true});
+  //   //}
+  // });
 });
 
   </script>

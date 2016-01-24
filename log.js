@@ -38,9 +38,12 @@ var AnswerLogListView = Backbone.View.extend({
 	initialize: function() {
 		// 'on' does not work ???
 		this.collection.bind('add', this.addOne, this);
+		// try this:
+		// this.listenTo(this.collection, 'add', this.addOne, this);
 	},
 
 	render: function() {
+		console.log('render log');
 		this.collection.forEach(this.addOne, this);
 	},
 
