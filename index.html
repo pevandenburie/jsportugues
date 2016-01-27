@@ -387,13 +387,16 @@ var JsPortuguesApp = new (Backbone.View.extend({
   currentView: undefined,
 
   template: _.template(
-    // "<div id=answerslog></div>"+
-    // "<br><br>"+
-    // "<h2>Exercicios:</h2>"+
-    '<a href="/" class="btn btn-default btn-block" data-backbone="true">Conjuguing</a>'+
-    '<a href="/preterito" class="btn btn-default btn-block" data-backbone="true">Preterito do Indicativo</a>'+
-    '<a href="/presentedoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Presente do Conjunctivo</a>'+
-    '<a href="/imperfeitodoconjunctivo" class="btn btn-default btn-block" data-backbone="true">Imperfeito do Conjunctivo</a>'+
+    '<div class="dropdown">'+
+        '<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu </button>'+
+        '<ul class="dropdown-menu">'+
+            '<li><a href="/" data-backbone="true">Conjuguing</a></li>'+
+            '<li class="divider"></li>'+
+            '<li><a href="/preterito" data-backbone="true">Exo Preterito do Indicativo</a></li>'+
+            '<li><a href="/presentedoconjunctivo" data-backbone="true">Exo Presente do Conjunctivo</a></li>'+
+            '<li><a href="/imperfeitodoconjunctivo" data-backbone="true">Exo Imperfeito do Conjunctivo</a></li>'+
+        '</ul>'+
+    '</div>'+
     '<br><br>'
   ),
 
@@ -430,7 +433,6 @@ var JsPortuguesApp = new (Backbone.View.extend({
 
   start: function() {
     Backbone.history.start({ pushState: true });
-    // this.$el.render(this.currentView.render().el);
     Backbone.history.navigate("", {trigger: true});
   },
 }))({el: "#content"});
@@ -469,22 +471,7 @@ var JsPortuguesApp = new (Backbone.View.extend({
 
 
 $(function() {
-  //JsPortuguesApp.render();
   JsPortuguesApp.start();
-
-  // on every click, check if it's an href that can be handled by the router
-  // More on https://gist.github.com/colllin/5717284
-  // $(document.body).on('click', 'a', function(event) {
-  //   var href = $(this).attr('href');
-  //
-  //   //if (route.test(href)) {
-  //       event.preventDefault();
-  //
-  //       console.log('Navigate to '+href);
-  //       //Backbone.history.navigate(href, {trigger: true});
-  //       app.navigate(href, {trigger: true});
-  //   //}
-  // });
 });
 
   </script>
