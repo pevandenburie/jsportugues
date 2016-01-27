@@ -13,7 +13,6 @@
   <!-- Latest compiled JavaScript -->
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-
   <script src="underscore-min.js"></script>
   <!--script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script-->
 
@@ -32,16 +31,7 @@
   <script type="text/javascript" src="preterito.exo.js" charset="UTF-8"> </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <!-- <link rel="stylesheet" type="text/css" href="jsportugues.css"> </style> -->
-  <style>
-    .wrong {
-        color: red;
-    }
-
-    .right {
-        color: green;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="jsportugues.css"></link>
 </head>
 
 <body>
@@ -102,14 +92,10 @@
     initialize: function() {
       this.conjuguingFunc = this.conjugueNoImperfeito;
 
+      // Use 'listenTo' instead of 'this.model.on' to be able to remove the view easily
       this.listenTo(this.model, 'change', this.renderAnswer, this);
-      // this.model.on('change', this.renderAnswer, this);
     },
 
-    //Try this using a Form:
-    // events: {
-    //   submit: "updateLastConjuguing"
-    // }
 
     template: _.template(
       "<strong>Conjugado</strong>"+
@@ -272,19 +258,12 @@ var ExoView = Backbone.View.extend({
     // when given by new ExoView({description: "Imperfeito do Conjunctivo"});
     // this.description = options.description;
 
-    // Use listenTo to be able to remove the view easily
-    //this.model.on('change:question', this.render, this);
+    // Use 'listenTo' instead of 'this.model.on' to be able to remove the view easily
     this.listenTo(this.model, 'change:question', this.render, this);
-
 
     // Delegate the answser log rendering to another View
     this.logListView = new AnswerLogListView({collection: this.model.logList});
   },
-
-  //Try this using a Form:
-  // events: {
-  //   submit: "submitAnswer"
-  // }
 
   template: _.template(
     //'<div id=score><%="Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure)%></div>'+
@@ -336,12 +315,12 @@ var ExoView = Backbone.View.extend({
 
 
 var JsPortuguesApp = new (Backbone.View.extend({
-  // Models: {
-  //   Conjuguing: ConjuguingModel,
-  //   Imperfeitodoconjunctivo: ImperfeitodoconjunctivoModel,
-  //   Presentedoconjunctivo: PresentedoconjunctivoModel,
-  //   Preterito: PreteritoModel,
-  // },
+  Models: {
+    Conjuguing: ConjuguingModel,
+    Imperfeitodoconjunctivo: ImperfeitodoconjunctivoModel,
+    Presentedoconjunctivo: PresentedoconjunctivoModel,
+    Preterito: PreteritoModel,
+  },
   //Collections: {},
   Views: {
     Conjuguing: ConjuguingView,
@@ -424,11 +403,10 @@ var JsPortuguesApp = new (Backbone.View.extend({
   },
 
   initialize: function() {
-    // this.View.appView = new AppView();
-    this.conjuguing = new this.Views.Conjuguing({model: new ConjuguingModel()});
-    this.preterito = new this.Views.Exo({model: new PreteritoModel()});
-    this.imperfeitodoconjunctivo = new this.Views.Exo({model: new ImperfeitodoconjunctivoModel()});
-    this.presentedoconjunctivo = new this.Views.Exo({model: new PresentedoconjunctivoModel()});
+    this.conjuguing = new this.Views.Conjuguing({model: new this.Models.Conjuguing()});
+    this.preterito = new this.Views.Exo({model: new this.Models.Preterito()});
+    this.imperfeitodoconjunctivo = new this.Views.Exo({model: new this.Models.Imperfeitodoconjunctivo()});
+    this.presentedoconjunctivo = new this.Views.Exo({model: new this.Models.Presentedoconjunctivo()});
   },
 
   start: function() {
@@ -436,38 +414,6 @@ var JsPortuguesApp = new (Backbone.View.extend({
     Backbone.history.navigate("", {trigger: true});
   },
 }))({el: "#content"});
-
-
-
-// var app = new (Backbone.Router.extend({
-//   routes: {
-//     "": "index",
-//     "index": "index",
-//     "preterito": "exo_preterito",
-//     "imperfeitodoconjunctivo": "exo_imperfeitodoconjunctivo",
-//     "presentedoconjunctivo": "exo_presentedoconjunctivo",
-//   },
-//
-//   // start: function() {
-//   //   Backbone.history.start({ pushState: true });
-//   // },
-//
-//   index: function() {
-//     this.appView.render(this.conjuguingView);
-//   },
-//   exo_preterito: function() {
-//     console.log('preteritoView');
-//     this.appView.render(this.preteritoView);
-//   },
-//   exo_imperfeitodoconjunctivo: function() {
-//     console.log('imperfeitodoconjunctivoView');
-//     this.appView.render(this.imperfeitodoconjunctivoView);
-//   },
-//   exo_presentedoconjunctivo: function() {
-//     console.log('presentedoconjunctivoView');
-//     this.appView.render(this.presentedoconjunctivoView);
-//   },
-// }))();
 
 
 $(function() {

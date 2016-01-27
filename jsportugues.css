@@ -1,40 +1,7 @@
-body {
-    background-color: DarkSlateGray;
-    font-family: "Arial";
-    color: white;
-    font-size: 20px;
-  
-    /*min-width: 320px;*/
-    margin: 0;
-}
-
-#bloc_page
-{
-    max-width: 900px;
-    margin: auto;
-    min-width: 320px;
-}
-
-h1 {
-    color: lime;
-    text-align: center;
-}
-
-h2 {
-    color: lime;
-}
-
-a:link {
-    color: white;
-}
-a:visited {
-    color: white;
-}
-
 .wrong {
     color: red;
 }
 
 .right {
-    color: lime;
+    color: green;
 }
