@@ -192,13 +192,16 @@ var ExoModel = Backbone.Model.extend({
 
   refreshQuestion: function() {
     question = this.createQuestion();
+
+    console.log('created question:');
+    console.log(question);
     this.set('question', question);
     this.set('useranswer', "");
   },
 
   submitAnswer: function(userAnswer) {
 
-    console.log(this.title+": submit answer: "+userAnswer);
+    console.log(this.get('title')+": submit answer: "+userAnswer);
 
     var question = this.get('question');
     var score = this.get('score');
@@ -231,19 +234,22 @@ var ExoModel = Backbone.Model.extend({
   },
 });
 
-var ImperfeitodoconjunctivoModel = ExoModel.extend({
-  title: "Exo Imperfeito do Conjunctivo",
+var ImperfeitodoconjunctivoModel = new (ExoModel.extend({
   createQuestion: JsPortugues.exercises.imperfeitodoconjunctivo.createQuestion
+}))({
+  title: "Exo Imperfeito do Conjunctivo",
 });
 
-var PresentedoconjunctivoModel = ExoModel.extend({
-  title: "Exo Presente do Conjunctivo",
+var PresentedoconjunctivoModel = new (ExoModel.extend({
   createQuestion: JsPortugues.exercises.presentedoconjunctivo.createQuestion
+}))({
+  title: "Exo Presente do Conjunctivo",
 });
 
-var PreteritoModel = ExoModel.extend({
-  title: "Exo Preterito do Indicativo",
+var PreteritoModel = new (ExoModel.extend({
   createQuestion: JsPortugues.exercises.preterito.createQuestion
+}))({
+  title: "Exo Preterito do Indicativo",
 });
 
 
@@ -277,7 +283,8 @@ var ExoView = Backbone.View.extend({
     '<div id=answerslog></div>'),
 
   render: function() {
-    this.$el.html( this.template(this.model) );
+    console.log(this.model.attributes);
+    this.$el.html( this.template(this.model.attributes) );
     this.logListView.render();
 
     // ensure document is updated before setting the focus
@@ -310,7 +317,6 @@ var ExoView = Backbone.View.extend({
   refreshScore: function() {
     document.getElementById('score').textContent = "Score:  " + score.nbSuccess + " / " + (score.nbSuccess + score.nbFailure);
   },
-
 });
 
 
@@ -404,9 +410,9 @@ var JsPortuguesApp = new (Backbone.View.extend({
 
   initialize: function() {
     this.conjuguing = new this.Views.Conjuguing({model: new this.Models.Conjuguing()});
-    this.preterito = new this.Views.Exo({model: new this.Models.Preterito()});
-    this.imperfeitodoconjunctivo = new this.Views.Exo({model: new this.Models.Imperfeitodoconjunctivo()});
-    this.presentedoconjunctivo = new this.Views.Exo({model: new this.Models.Presentedoconjunctivo()});
+    this.preterito = new this.Views.Exo({model: this.Models.Preterito});
+    this.imperfeitodoconjunctivo = new this.Views.Exo({model: this.Models.Imperfeitodoconjunctivo});
+    this.presentedoconjunctivo = new this.Views.Exo({model: this.Models.Presentedoconjunctivo});
   },
 
   start: function() {
