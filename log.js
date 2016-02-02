@@ -23,9 +23,7 @@ var AnswerLogView = Backbone.View.extend({
 		"(<%= solutionFullText %>)</div>"),
 
 	render: function() {
-		var attributes = this.model.toJSON();
-		$(this.el).html(this.template(attributes));
-
+		$(this.el).html(this.template(this.model.toJSON()));
 		return this;
 	}
 });
