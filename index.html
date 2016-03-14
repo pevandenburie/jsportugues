@@ -16,8 +16,8 @@
   <script src="underscore-min.js"></script>
   <!--script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script-->
 
-  <!--script src="backbone-min.js"></script-->
   <script src="backbone.js"></script>
+  <script src="backbone.layoutmanager.js"></script>
   <!--script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"></script-->
 
   <script type="text/javascript" src="verb.js" charset="UTF-8"> </script>
@@ -79,6 +79,7 @@
 
 
   var ConjuguingView = Backbone.View.extend({
+    keep: true, // backbone.layout
     events: {
       "keypress #verb": "onKeyPress",
       "click #noimperfeito": "conjugueNoImperfeito",
@@ -211,7 +212,7 @@ var ExoModel = Backbone.Model.extend({
     nbAnswers = (score.nbSuccess + score.nbFailure);
 
     this.set({
-      useranswer: userAnswer,
+      //useranswer: userAnswer,
       isSuccess: isSuccess,
       score: _.clone(score),
       nbAnswers: nbAnswers,
@@ -249,6 +250,7 @@ var PreteritoModel = new (ExoModel.extend({
 
 
 var ExoView = Backbone.View.extend({
+  keep: true, // backbone.layout
   events: {
     "click #submit": "submitAnswer",
     "keypress": "onKeyPress",
@@ -312,7 +314,7 @@ var ExoView = Backbone.View.extend({
 });
 
 
-var JsPortuguesApp = new (Backbone.View.extend({
+var JsPortuguesApp = new (Backbone.Layout.extend({
   Models: {
     Conjuguing: ConjuguingModel,
     Imperfeitodoconjunctivo: ImperfeitodoconjunctivoModel,
@@ -324,6 +326,10 @@ var JsPortuguesApp = new (Backbone.View.extend({
     Conjuguing: ConjuguingView,
     Exo: ExoView
   },
+
+  /*views: {
+    ".secondary": new LoginView()
+  },*/
 
   Router: new (Backbone.Router.extend({
     routes: {
@@ -370,10 +376,15 @@ var JsPortuguesApp = new (Backbone.View.extend({
         '</ul>'+
     '</div>'+
     '<br><br>'+
+    // The selected view will be injected here
+    //'<aside class="subview"></aside>'
     '<div id="subview"></div>'
   ),
 
   render: function(newView) {
+    console.log("insertView: " + newView);
+    this.insertView("#subview", newView);
+    /*
     if (this.currentView) {
       this.currentView.remove();
     }
@@ -388,9 +399,11 @@ var JsPortuguesApp = new (Backbone.View.extend({
     this.currentView.setElement(this.$('#subview')).render();
 
     return this;
+    */
   },
 
   index: function() {
+    console.log("index");
     this.render(this.conjuguing);
   },
   exo_preterito: function() {
@@ -418,6 +431,9 @@ var JsPortuguesApp = new (Backbone.View.extend({
 
 
 $(function() {
+  // Set all Views to be managed by LayoutManager.
+  Backbone.Layout.configure({ manage: true });
+
   JsPortuguesApp.start();
 });
 
